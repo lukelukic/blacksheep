@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\ModelManager;
+use App\ProductCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -14,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        return view("admin/categories");
     }
 
     /**
@@ -24,7 +26,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $repo = ProductCategory::getRepository();
+        return $repo->findAll();
     }
 
     /**
@@ -35,7 +38,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return ['status' => true];
     }
 
     /**
@@ -46,7 +49,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -80,6 +83,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = ProductCategory::getRepository()->findById($id);
+        $result = ModelManager::deleteInstance($product);
+        return ['status' => $result];
     }
 }

@@ -2,9 +2,11 @@
 
 namespace App;
 
+use App\Interfaces\Repository;
+use App\Repository\CategoryRepository;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductCategory extends Model
+class ProductCategory extends Model implements Repository
 {
     public function parentCategory()
     {
@@ -19,5 +21,10 @@ class ProductCategory extends Model
     public function products()
     {
         return $this->hasMany("App\Product", 'product_category_id');
+    }
+
+    public static function getRepository()
+    {
+        return new CategoryRepository(new ProductCategory());
     }
 }

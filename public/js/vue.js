@@ -21,40 +21,91 @@ Vue.component('info-card', {
 var categoryData = {
     name : 'Kategorija 123',
     hasParent : false,
-    categories : [
-        { id : 1, name : "Kategorija"}
-    ]
+    categories :
+    {
+        selected: 'A',
+        options: [
+            { name: 'One', id: 'A' },
+            { name: 'Two', id: 'B' },
+            { name: 'Three', id: 'C' }
+        ]
+    }
+
 };
 
 Vue.component('category-form', {
     template : "<div>" +
     "<div class='form-group'><input type='text' class='form-control' placeholder='Ime kategorije' v-model='name'/></div>" +
     "<div class='form-group'><input type='checkbox' v-model='hasParent'/> Ima nadkategoriju</div>" +
-    "<div v-if='hasParent' class='form-group'> <select v-model='categories' class='form-control'><option value='0'>Izaberi...</option><option v-for='cat in categories' :value='cat.id'>{{ cat.name }}</option></select></div>" +
+    "<div v-if='hasParent' class='form-group'><p>Odaberi kategoriju: </p> <select v-model='categories.selected' class='form-control'><option v-for='c in categories.options' value='c.id'>{{ c.name }}</option></select></div>" +
     "<div class='form-group'><button class='btn btn-primary' @click='checkData'>Dodaj</button></div>" +
+    "<div class='form-group' v-if='hasErrors'><div class='alert alert-danger'>Ime kategorije nije u dobrom formatu. Mora poceti velikim slovom i sadrzati samo slova i brojeve.</div></div>" +
+    "<div class='form-group' v-if='success'><div class='alert alert-info'>Uspesan unos!</div></div>" +
     "</div>",
     data : function() {
-        return categoryData;
+        return {
+            categories : categoryData.categories,
+            hasParent : false,
+            name : "",
+            parentId : null,
+            hasErrors : false,
+            success : false
+        }
     },
     methods : {
         checkData : function() {
-
+            var reName = /^[A-Z][a-z]{2,15}(\s[\w]{1,20})*$/;
+            if(reName.test(this.name)) {
+                obj = {
+                    url : base_url + "/admin/categories",
+                    data : {
+                        name : this.name,
+                        parent_id : this.parent_id
+                    },
+                    type : "POST",
+                    success : this.response,
+                    error : function(error) {
+                        console.log(error);
+                    }
+                };
+                callAjax(obj);
+            } else {
+                this.hasErrors = true;
+                this.success = false;
+            }
+        },
+        response : function(data) {
+            if(data.status) {
+                this.success = true;
+                this.hasErrors = false;
+            }
         }
     }
 });
 
 
 Vue.component('category-table', {
-    template : "<table class='table table-stripped'>" +
+    template : "<table class='table table-striped'><tbody>" +
     "<tr><th>Ime kategorije</th><th>Izmeni</th><th>Izbrisi</th></tr>" +
-    "<tr v-for='cat in categories'><td>{{ cat.name }}</td><td><button @click='editItem(cat.id)' class='btn btn-primary btn-xs'><i class='fa fa-edit'></i></button></td><td><button @click='deleteItem(cat.id)' class='btn btn-danger btn-xs'><i class='fa fa-trash'></i></button></td></tr>" +
-    "</table>",
+    "<tr v-for='cat in categories.options'><td>{{ cat.name }}</td><td><button @click='editItem(cat.id)' class='btn btn-primary btn-xs'><i class='fa fa-edit'></i></button></td><td><button @click='deleteItem(cat.id)' class='btn btn-danger btn-xs'><i class='fa fa-trash'></i></button></td></tr>" +
+    "</tbody></table>",
     data : function() {
         return categoryData;
     },
     methods : {
         deleteItem : function(id) {
-            console.log("Deleting..." + id);
+            obj = {
+                url : base_url + "/admin/categories/" + id,
+                type : "delete",
+                success : function(data) {
+                    console.log(data);
+                },
+                error : function(error) {
+                    console.log(error);
+                }
+            };
+
+            callAjax(obj);
         },
         editItem : function (id) {
             console.log("Editing..." + id);
@@ -73,18 +124,19 @@ var cards = [
     { number : "", text : "Proizvoda dodatih ove nedelje!", color : "panel-warning", icon: "fa-comments" }
 ];
 
-$.ajax({
-   url : "http://localhost/blacksheep/public/index.php/cards",
+ var obj = {
+   url : base_url + "/admin/categories/create",
    type : "GET",
     success : function(data) {
-        for(let i=0; i<data.length; i++) {
-            cards[i].number = data[i];
-        }
+        console.log(data);
+        categoryData.categories.options = data;
     }, 
     error : function (xhr, status, error) {
 
     }
-});
+};
+
+callAjax(obj);
 
 new Vue({
     el : "#page-wrapper",

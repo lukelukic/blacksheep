@@ -28,4 +28,6 @@ class ProductRepository extends AbstractRepository
     {
         return $product->category->name;
     }
+
+    
 }

@@ -69,6 +69,7 @@ Route::post('/auth', function(Request $request) {
 //Admin group
 Route::group(['middleware' => 'admin'], function(){
    Route::resource("admin/products", 'Admin\ProductController');
+    Route::resource("/admin/categories", "Admin\CategoryController");
 });
 
 Route::get("/cards", function(Request $request){
@@ -81,9 +82,7 @@ Route::post("/product", function(Request $request){
     ];
 });
 
-Route::get("asset", function() {
-   return view('admin.overview');
-});
+
 
 
 
