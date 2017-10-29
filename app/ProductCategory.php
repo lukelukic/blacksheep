@@ -27,4 +27,6 @@ class ProductCategory extends Model implements Repository
     {
         return new CategoryRepository(new ProductCategory());
     }
+
+
 }
