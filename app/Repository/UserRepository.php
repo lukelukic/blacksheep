@@ -36,4 +36,9 @@ class UserRepository extends AbstractRepository
         return $this->model->all();
     }
 
+    public function findByToken($token)
+    {
+        return $this->model->where('token', $token)->get();
+    }
+
 }

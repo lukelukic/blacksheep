@@ -24,13 +24,17 @@ class DTOValidator
 
     public function isValid()
     {
-        $validator = Validator::make(array($this->dto), $this->dto->getRules(), $this->dto->getMessages());
+        $validator = Validator::make(get_object_vars($this->dto), $this->dto->getRules(), $this->dto->getMessages());
         $this->errors = $validator->errors()->messages();
-        return count($this->errors);
+        return count($this->errors) == 0;
     }
 
     public function getErrors()
     {
         return $this->errors;
+    }
+
+    public function getDto(){
+        return $this->dto;
     }
 }

@@ -15,6 +15,7 @@ namespace App;
 
 
 use App\DTO\ObjectDTO;
+use App\Services\DTOValidator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Log;
@@ -30,15 +31,27 @@ class ModelManager
     {
         $model = null;
         if(ModelManager::isCompatible($className, $dto)){
-            if($dto->isValid()) {
+            $validator = new DTOValidator($dto);
+            if($validator->isValid()) {
                 $model = new $className;
                 foreach($dto as $key => $value) {
                     $model->$key = $value;
                 }
+                $model->token = ModelManager::generateRandomString();
                 $model->save();
             }
         }
         return $model;
+    }
+
+    private static function generateRandomString($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
     }
 
     /**
@@ -50,7 +63,8 @@ class ModelManager
     {
         $updated = null;
         if(get_class($model) == $dto->getModelClass()) {
-            if($dto->isValid()) {
+            $validator = new DTOValidator($dto);
+            if($validator->isValid()) {
                 foreach($dto as $key => $value) {
                     $model->$key = $value;
                 }

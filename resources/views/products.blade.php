@@ -1,17 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<?php
-    $data = [
-        'headers' => [
-            [
-                'subsubcategorySelectedElement' => 'iPhone 7',
-                'subcategorySelectedElement' => 'BATERIJE',
-                'productCount' => '500'
-            ]
-        ]
-    ]
-    ?>
-    @component('components.products_header',$data)@endcomponent
+
 
 <div class="main">
     <div class="container">
@@ -19,7 +8,7 @@
         <div class="sidebar col-md-3 col-sm-4">
             <ul class="list-group margin-bottom-25 sidebar-menu">
                 <?php
-                $data = [
+                $fifi = [
                     'artikli' => [
                         'oprema za mobilni'=>[
                             'maske' => [
@@ -47,7 +36,7 @@
                     ]
                 ];
                 ?>
-                @component('components.categories',$data)@endcomponent
+                @component('components.categories',$fifi)@endcomponent
 
                 {{--<li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Oprema za laptop</a></li>--}}
                 {{--<li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Oprema za racunar</a></li>--}}
@@ -67,24 +56,17 @@
                     <a href="javascript:;"><i class="fa fa-th-large"></i></a>
                     <a href="javascript:;"><i class="fa fa-th-list"></i></a>
                 </div>
-                @component('components.show_and_sort')@endcomponent
+                @component('components.show_and_sort', $data)@endcomponent
             </div>
 
-        <?php
-
-        $data = [
-            'latestProduct' => $store
-        ];
-
-        ?>
-        @component('components.category_product',$data)@endcomponent
+        @component('components.product',$data)@endcomponent
 
                 <!-- PRODUCT ITEM END -->
             </div>
             <!-- END PRODUCT LIST -->
             <!-- BEGIN PAGINATOR -->
 
-            @component('components.pagination')@endcomponent
+            @component('components.pagination', $data)@endcomponent
             <!-- END PAGINATOR -->
         </div>
         <!-- END CONTENT -->

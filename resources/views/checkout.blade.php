@@ -3,7 +3,7 @@
     <div class="main">
         <div class="container">
             <!-- BEGIN SIDEBAR & CONTENT -->
-            <div class="row margin-bottom-40">
+            <div class="row margin-bottom-40" id="milanko">
                 <!-- BEGIN CONTENT -->
                 <div class="col-md-12 col-sm-12">
                     <h1>NARUDŽBINA</h1>
@@ -29,16 +29,18 @@
                                     </div>
                                     <div class="col-md-6 col-sm-6">
                                         <h3>VEĆ SAM BLACK SHEEP KORISNIK</h3>
-                                        <p>Unesite petocifreni kod:</p>
-                                        <form role="form" action="#">
+                                        <p>Unesite kod dobijen pri prethodnoj kupovini:</p>
                                             <div class="form-group">
                                                 <input type="text" id="token" class="form-control">
                                             </div>
+                                            <button class="btn btn-primary" data-toggle="collapse" onclick="userByToken()"  >Potvrdi</button>
+                                                <div id="tokenFeedbackError" style="margin-top:15px;" class="alert alert-warning hidden ">Korisnik nije pronadjen.</div>
+                                        <div id="tokenFeedbackSuccess" style="margin-top:15px;" class="alert alert-info hidden ">
 
-                                            <button class="btn btn-primary" type="submit" data-toggle="collapse" data-parent="#checkout-page" data-target="#payment-address-content" >Potvrdi</button>
+                                        </div>
 
-                                        </form>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -53,67 +55,22 @@
                                     </a>
                                 </h2>
                             </div>
-                            <?php
-            $data = [
-                'details' => [
-                    [
-                        'name' => 'pera',
-                        'surname' => 'peric',
-                        'email' => 'email@email.com',
-                        'tel' => '0645555',
-                        'address' => 'prva',
-                        'address2' => 'druga',
-                        'town' => '3513',
-                        'zip' => '11000'
-                    ]
-                ]
-                            ];
-                            ?>
-                                @component('components.delivery_details',$data)@endcomponent
+                                @component('components.delivery_details')@endcomponent
 
                         </div>
                         <!-- END PAYMENT ADDRESS -->
 
 
-
-                        <!-- BEGIN SHIPPING METHOD -->
-                        <div id="shipping-method" class="panel panel-default">
-                            <div class="panel-heading">
-                                <h2 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#checkout-page" href="#shipping-method-content" class="accordion-toggle">
-                                        Korak 3: Način dostave
-                                    </a>
-                                </h2>
-                            </div>
-                            <div id="shipping-method-content" class="panel-collapse collapse">
-                                <div class="panel-body row">
-                                    <div class="col-md-12">
-                                        <p>Dostavu vrši CityExpress svakog radnog dana od 09 do 20h i subotom od 09 do 14h.</p>
-                                        <p>Plaćanje se vrši pouzećem u dinarskoj protivvrednosti</p>
-                                        <div class="form-group">
-                                            <label for="delivery-comments">Ako postoji zahtev vezano za dostavu, tu smo da izadjemo u susret:</label>
-                                            <textarea id="delivery-comments" rows="8" class="form-control"></textarea>
-                                        </div>
-                                        <button class="btn btn-primary  pull-right" type="submit" id="button-shipping-method" data-toggle="collapse" data-parent="#checkout-page" data-target="#confirm-content">Nastavite</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END SHIPPING METHOD -->
-
-                        <!-- BEGIN PAYMENT METHOD -->
-
-
                         <!-- BEGIN CONFIRM -->
-                        <div id="confirm" class="panel panel-default">
+                        <div id="confirm" class="panel panel-default hidden">
                             <div class="panel-heading">
                                 <h2 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#checkout-page" href="#confirm-content" class="accordion-toggle">
-                                        Korak 4: Potvrdi narudžbinu
+                                        Korak 3: Potvrdi narudžbinu
                                     </a>
                                 </h2>
                             </div>
-                            <div id="confirm-content" class="panel-collapse collapse">
+                            <div id="confirm-content" class="panel-collapse collapse ">
                                 <div class="panel-body row">
                                     <div class="col-md-12 clearfix">
                                         <div class="table-wrapper-responsive">
@@ -155,7 +112,7 @@
 
 
                                         <div class="clearfix"></div>
-                                        <button class="btn btn-primary pull-right" type="submit" id="button-confirm">Naruči</button>
+                                        <button class="btn btn-primary pull-right" type="submit" onclick="placeAnOrder()" id="button-confirm">Naruči</button>
                                         <button type="button" class="btn btn-default pull-right margin-right-20">Odustani</button>
                                     </div>
                                 </div>
@@ -164,10 +121,17 @@
                         <!-- END CONFIRM -->
                     </div>
                     <!-- END CHECKOUT PAGE -->
+                    <div id="orderFeedback">
+
+                    </div>
                 </div>
                 <!-- END CONTENT -->
+
             </div>
+
             <!-- END SIDEBAR & CONTENT -->
         </div>
     </div>
     @stop
+
+<script src="{{ asset("js/order.js") }}"></script>

@@ -21,6 +21,5 @@ class RequestToObject
                 $object->$key = $request->get($key);
             }
         }
-        return $object;
     }
 }

@@ -11,15 +11,7 @@
         <h3><a href="#">{{$featured['productName']}}</a></h3>
         <div class="pi-price">{{$featured['productPrice']}} RSD</div>
         <a href="javascript:;" class="btn btn-default add2cart">Dodaj u korpu</a>
-        @switch($featured['flag'])
-            @case('sale')
-            <div class="sticker sticker-sale"></div>
-            @break
-            @case('new')
-            <div class="sticker sticker-new"></div>
-            @break
-            @default
-        @endswitch
+
     </div>
 </div>
     @endforeach

@@ -15,33 +15,7 @@ Use Illuminate\Http\Request;
 Use App\User;
 Use App\Admin;
 Use \App\Services\DTOValidator;
-/*
- Get routes, representing pages
- */
-//Route::get('/', function () {
-//    echo "Pocetna";
-//})->name('home');
-//
-//Route::get('/delivery', function(){
-//    echo 'Dostava';
-//})->name('delivery');
-//
-//Route::get('/buy-guide', function(){
-//    echo 'Uputstvo za kupovinu';
-//})->name('delivery');
-//
-//Route::get('/contact', function(){
-//    echo 'Kontakt';
-//})->name('delivery');
-//
-//Route::get('/terms', function(){
-//    echo 'Pravila koriscenja';
-//})->name('delivery');
-//
-//Route::get('/categories', function(){
-//    echo 'Lista svih kategorija';
-//})->name('delivery');
-//
+
 //Route::get('/categories/{category}/{subcategory?}', function($category, $subcategory = null){
 //    echo 'Kategorija: ' . $category . " " . $subcategory;
 //})->name('delivery');
@@ -56,10 +30,10 @@ Use \App\Services\DTOValidator;
 |
 */
 
-Route::get('/', 'Home@index');
+Route::get('/', 'Home@index')->name('home');
 Route::get('/cart', 'Cart@index');
 Route::get('/checkout', 'Checkout@index');
-Route::get('/clearance', 'Clearance@index');
+Route::get('/sale', 'Clearance@index');
 Route::get('/orders', 'Orders@index');
 Route::get('/products', 'Products@index');
 Route::get('/contact', 'Contact@index');
@@ -67,8 +41,9 @@ Route::get('/custom-case', 'CustomCase@index');
 Route::get('/delivery', 'Delivery@index');
 Route::get('/faq', 'Faq@index');
 Route::get('/privacy-policy', 'PrivacyPolicy@index');
-
-
+Route::get('/search', 'Products@search');
+Route::post("/contact/send", "Contact@send");
+Route::get("/products/{id}", "Products@product");
 /*
  * Login ruta, kratka pa nema potrebe za kontrolerom
  */
@@ -84,26 +59,22 @@ Route::post('/auth', function(Request $request) {
         }
     }
 });
-/*
-    Testing data
-*/
+
 //Admin group
 Route::group(['middleware' => 'admin'], function(){
    Route::resource("admin/products", 'Admin\ProductController');
     Route::resource("/admin/categories", "Admin\CategoryController");
 });
 
-Route::get("/cards", function(Request $request){
-    return [1,3,4,5];
+
+
+//Obrada porudzbine
+Route::post("/order/place", "Cart@place");
+Route::post("/order/add", "Cart@full");
+Route::get("/order/delete/{id}", "Cart@remove");
+Route::get("/token", function(Request $request) {
+    $user = User::getRepository()->findByToken($request->get("token"));
+    return count($user) ? ['status' => true, 'user' => $user[0]] : ['status' => false];
 });
-
-Route::post("/product", function(Request $request){
-    return [
-        'feedback' => "Uspesan unos!"
-    ];
-});
-
-
-
-
+Route::post("/checkout/buy", "Checkout@buy");
 

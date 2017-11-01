@@ -95,56 +95,10 @@
             <!-- BEGIN SALE PRODUCT & NEW ARRIVALS -->
             <div class="row margin-bottom-40">
                 <!-- BEGIN SALE PRODUCT -->
-                <div class="col-lg-3 col-md-12 col-sm-12" style="margin-bottom:20px">
-                    <form action="#">
-                @component('components.search')@endcomponent
-                    </form>
-                </div>
 
                 <div class="col-md-12 sale-product">
                     <h2>Najnoviji proizvodi</h2>
                     <div class="owl-carousel owl-carousel5">
-                <?php
-            $data = [
-                'latestProduct' => [
-                    [
-                        'productImgPath' => 'assets/pages/img/products/model1.jpg',
-                        'productImgAlt' => 'Slicica',
-                        'productPrice' => '333',
-                        'productName' => 'Latest naziv',
-                        'flag'=>'sale'
-                    ],
-                    [
-                        'productImgPath' => 'assets/pages/img/products/model1.jpg',
-                        'productImgAlt' => 'Slicica',
-                        'productPrice' => '333',
-                        'productName' => 'Latest naziv',
-                        'flag'=>'sale'
-                    ],
-                    [
-                        'productImgPath' => 'assets/pages/img/products/model1.jpg',
-                        'productImgAlt' => 'Slicica',
-                        'productPrice' => '333',
-                        'productName' => 'Latest naziv',
-                        'flag'=>'sale'
-                    ],
-                    [
-                        'productImgPath' => 'assets/pages/img/products/model1.jpg',
-                        'productImgAlt' => 'Slicica',
-                        'productPrice' => '333',
-                        'productName' => 'Latest naziv',
-                        'flag'=>'new'
-                    ],
-                    [
-                        'productImgPath' => 'assets/pages/img/products/model1.jpg',
-                        'productImgAlt' => 'Slicica',
-                        'productPrice' => '333',
-                        'productName' => 'Latest naziv',
-                        'flag'=>'sale'
-                    ]
-                ]
-            ]
-            ?>
                 @component('components.latest_product',$data)@endcomponent
                     </div>
                 </div>
@@ -158,7 +112,7 @@
                 <div class="sidebar col-md-3 col-sm-4">
                     <ul class="list-group margin-bottom-25 sidebar-menu">
                 <?php
-                $data = [
+                $picka = [
                     'artikli' => [
                         'oprema za mobilni'=>[
                     'maske' => [
@@ -199,7 +153,7 @@
                     ]
                 ];
                         ?>
-                @component('components.categories',$data)@endcomponent
+                @component('components.categories',$picka)@endcomponent
 
                         {{--<li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Oprema za laptop</a></li>--}}
                         {{--<li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Oprema za racunar</a></li>--}}
@@ -217,35 +171,7 @@
                 <div class="col-md-9 col-sm-8">
                     <h2>Najtrazenije!</h2>
                     <div class="owl-carousel owl-carousel3">
-<?php
-                        $data = [
-                            'popularProduct' => [
-                                [
-                                    'popularImgPath' => 'assets/pages/img/products/k1.jpg',
-                                    'popularImgAlt' => 'Slicica',
-                                    'popularProductName' => 'Hehe',
-                                    'popularProductPrice' => '333',
-                                    'flag'=>'new'
-                                ],
-                                [
-                                    'popularImgPath' => 'assets/pages/img/products/k1.jpg',
-                                    'popularImgAlt' => 'Slicica',
-                                    'popularProductName' => 'Hehe',
-                                    'popularProductPrice' => '333',
-                                    'flag'=>'s'
-                                ],
-                                [
-                                    'popularImgPath' => 'assets/pages/img/products/k1.jpg',
-                                    'popularImgAlt' => 'Slicica',
-                                    'popularProductName' => 'Hehe',
-                                    'popularProductPrice' => '333',
-                                    'flag'=>'s'
-                                ]
-                            ]
-                        ]
-                        ?>
-@component('layouts.components.popular_product',$data)@endcomponent
-
+                        @component('layouts.components.popular_product', $data)@endcomponent
                     </div>
                 </div>
                 <!-- END CONTENT -->

@@ -20,12 +20,12 @@ class Product extends Model implements Repository
 
     public function colors()
     {
-        return $this->belongsToMany("App\Color");
+        return $this->belongsToMany("App\Color", "product_color");
     }
 
     public function pictures()
     {
-        return $this->belongsTo("App\Picture");
+        return $this->belongsToMany("App\Picture", "product_picture");
     }
 
     public static function getRepository()

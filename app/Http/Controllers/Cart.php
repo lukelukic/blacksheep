@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Product;
+use App\Services\ProductToAssoc;
 use Illuminate\Http\Request;
 
 class Cart extends Controller
@@ -11,74 +13,110 @@ class Cart extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('cart');
+        if($request->get("refresh")) {
+            $id = $request->get('item');
+            $amount = $request->get('qnt');
+
+            $items = session()->pull('orderItems');
+            for($i = 0; $i < count($items); $i++) {
+                if($items[$i]['item']->id == $id) {
+                    $items[$i]['amount'] = $amount;
+                }
+            }
+            session()->put('orderItems', $items);
+
+        }
+
+        $repo = Product::getRepository();
+        $special = ProductToAssoc::convert($repo->specialProducts());
+        return view('cart', [
+            'data' => [
+                'latestProducts' => $special,
+            ]
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function place(Request $request)
     {
-        //
+        $id = $request->post('id');
+        $product = \App\Product::find($id);
+        if(!session('orderItems')) {
+            session(['orderItems' => [
+                [
+                    'item' => $product,
+                    'amount' => 1
+                ]
+            ]]);
+        } else {
+            $exists = false;
+            $items = session()->pull('orderItems');
+            for($i = 0; $i < count($items); $i++) {
+                if($items[$i]['item']->id == $id) {
+                    $items[$i]['amount']++;
+                    $exists = true;
+                }
+            }
+            session()->put('orderItems', $items);
+            if(!$exists) {
+                session()->push('orderItems',
+                    [
+                        'item' => $product,
+                        'amount' => 1
+                    ]);
+            }
+        }
+        return redirect()->back();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function full(Request $request)
     {
-        //
+        $id = $request->post('productId');
+        $amount = $request->post('productQuantity');
+        $colorId = $request->post('productColor');
+
+        $product = \App\Product::find($id);
+        if(!session('orderItems')) {
+            session(['orderItems' => [
+                [
+                    'item' => $product,
+                    'amount' => $amount,
+                    'color_id' => $colorId
+                ]
+            ]]);
+        } else {
+            $exists = false;
+            $items = session()->pull('orderItems');
+            for($i = 0; $i < count($items); $i++) {
+                if($items[$i]['item']->id == $id) {
+                    $items[$i]['amount']+=$amount;
+                    $exists = true;
+                }
+            }
+            session()->put('orderItems', $items);
+            if(!$exists) {
+                session()->push('orderItems',
+                    [
+                        'item' => $product,
+                        'amount' => $amount,
+                        'color_id' => $colorId
+                    ]);
+            }
+        }
+        return redirect()->back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function remove($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $items = session()->get('orderItems');
+        $newArray = [];
+        for($i = 0; $i < count($items); $i++) {
+            if($items[$i]['item']->id != $id) {
+                array_push($newArray, $items[$i]);
+            }
+        }
+        session()->put('orderItems', $newArray);
+         return redirect()->back();
     }
 }
