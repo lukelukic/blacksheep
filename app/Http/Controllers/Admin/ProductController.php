@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Product;
+use App\ProductCategory;
+use App\Repository\ProductRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -14,18 +18,14 @@ class ProductController extends Controller
      */
     public function index()
     {
-
+        $products = Product::getRepository()->findAll();
+        $categories = ProductCategory::getRepository()->findAll();
+        return [
+            'products' => $products,
+            'categories' => $categories
+        ];
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -35,30 +35,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-
+        
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -69,7 +48,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        echo "EDIT";
     }
 
     /**
@@ -80,6 +59,20 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::getRepository()->findById($id);
+        if($product) {
+            try {
+                $product->is_active = false;
+                $result = $product->save();
+                return ['status' => 200];
+            } catch (\Exception $e) {
+                Log::error($e->getMessage());
+                return ['status' => 500];
+            }
+
+        } else {
+            return ['status' => 404];
+        }
+
     }
 }

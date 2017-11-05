@@ -6,7 +6,7 @@ use App\Interfaces\Repository;
 use App\Repository\CategoryRepository;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductCategory extends Model implements Repository
+class Category extends Model implements Repository
 {
     public function parentCategory()
     {

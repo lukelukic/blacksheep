@@ -1,8 +1,12 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
-class PicturesTableSeeder extends Seeder
+/**
+ * Created by PhpStorm.
+ * User: luke
+ * Date: 4.11.17.
+ * Time: 23.53
+ */
+class PicturesTableSeeder extends \Illuminate\Database\Seeder
 {
     /**
      * Run the database seeds.
@@ -11,12 +15,9 @@ class PicturesTableSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker\Factory::create();
-        for($i=0; $i<100; $i++) {
-            $picture = new App\Picture();
-            $picture->alt = "Alt" . $i;
-            $picture->file = "picture" . strtotime($faker->time()) . ".jpg";
-            $picture->save();
-        }
+        $picture = new App\Picture();
+        $picture->file = "p4.jpg";
+        $picture->alt = "Slika";
+        $picture->save();
     }
 }

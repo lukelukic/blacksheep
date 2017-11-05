@@ -17,14 +17,19 @@ class CreateProductsTable extends Migration
             //Fields
             $table->increments('id');
             $table->timestamps();
-            $table->string("name", 30)->unique();
+            $table->string("name", 60)->unique();
             $table->mediumText("description");
             $table->boolean("is_active")->default(false);
             $table->boolean("is_offer")->default(false);
-            $table->unsignedInteger("product_category_id")->unsigned();
             $table->boolean("special")->default(false);
+            $table->unsignedInteger("brand_id")->unsigned();
+            $table->unsignedInteger("picture_id")->unsigned();
+            $table->unsignedInteger("type_id")->unsigned()->nullable()->default(null);
+
             //Foreign keys
-            $table->foreign('product_category_id')->references('id')->on('product_categories');
+            $table->foreign('brand_id')->references('id')->on('brands');
+            $table->foreign('picture_id')->references('id')->on('pictures');
+            $table->foreign('type_id')->references('id')->on('types');
         });
 
     }

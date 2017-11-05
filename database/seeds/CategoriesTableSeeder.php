@@ -13,19 +13,10 @@ class CategoriesTableSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
 
-        for($i = 1; $i < 11; $i++) {
-            $category = new App\ProductCategory();
-            $category->name = "Category" . $i;
+        for($i = 1; $i < 10; $i++) {
+            $category = new App\Category();
             $category->name = "Category" . $i;
             $category->save();
         }
-
-        for($i = 1; $i<11; $i++) {
-            $category = new App\ProductCategory();
-            $category->name = "Subcategory" . $i;
-            $category->parent_id = rand(1,10);
-            $category->save();
-        }
-
     }
 }

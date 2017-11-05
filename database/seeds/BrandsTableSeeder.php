@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class ColorsTableSeeder extends Seeder
+class BrandsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,10 +13,10 @@ class ColorsTableSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
 
-        for($i = 1; $i < 7; $i++) {
-            $color = new App\Color();
-            $color->hex = $faker->hexColor;
-            $color->save();
+        for($i = 1; $i < 10; $i++) {
+            $category = new App\Brand();
+            $category->name = "Brand" . $i;
+            $category->save();
         }
     }
 }

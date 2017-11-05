@@ -9,10 +9,15 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model implements Repository
 {
 
-    public function category() {
-        return $this->belongsTo("App\ProductCategory", 'product_category_id');
+    public function brand()
+    {
+        return $this->belongsTo("App\Brand");
     }
 
+    public function type()
+    {
+        return $this->belongsTo("App\Type");
+    }
     public function prices()
     {
         return $this->hasMany("App\Price");
@@ -23,9 +28,9 @@ class Product extends Model implements Repository
         return $this->belongsToMany("App\Color", "product_color");
     }
 
-    public function pictures()
+    public function picture()
     {
-        return $this->belongsToMany("App\Picture", "product_picture");
+        return $this->hasOne("App\Picture");
     }
 
     public static function getRepository()

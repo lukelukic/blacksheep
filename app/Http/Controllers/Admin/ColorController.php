@@ -2,8 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Color;
+use App\DTO\ColorDTO;
+use App\ModelManager;
+use App\Services\DTOValidator;
+use App\Services\RequestToObject;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
 
 class ColorController extends Controller
 {
@@ -14,18 +21,11 @@ class ColorController extends Controller
      */
     public function index()
     {
-        //
+        return [
+            'colors' => Color::all()
+        ];
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -35,30 +35,23 @@ class ColorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $dto = new ColorDTO();
+        $status = 201;
+        RequestToObject::transform($dto);
+        $validator = new DTOValidator($dto);
+        if ($validator->isValid()) {
+            try {
+                ModelManager::saveInstance(Color::class, $dto);
+            } catch (QueryException $e) {
+                Log::error($e->getMessage());
+            }
+        } else {
+            $status = 400;
+        }
+        return ['status' => $status];
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -80,6 +73,19 @@ class ColorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $status = 200;
+        $color = Color::find($id);
+        if($color) {
+            try {
+                $result = ModelManager::deleteInstance($color);
+            } catch(\PDOException $e) {
+                Log::error($e->getMessage());
+                $status = 500;
+            }
+        } else {
+            $status = 404;
+        }
+
+        return ['status' => $status];
     }
 }

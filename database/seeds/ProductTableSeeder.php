@@ -17,7 +17,8 @@ class ProductTableSeeder extends Seeder
             $product = new App\Product();
             $product->name = "Product" . $i;
             $product->description = $faker->text(100);
-            $product->product_category_id = rand(11, 20);
+            $product->brand_id = rand(1, 9);
+            $product->picture_id = 1;
             $product->save();
         }
     }

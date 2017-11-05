@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\ModelManager;
 use App\ProductCategory;
+use App\Repository\CategoryRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
 
 class CategoryController extends Controller
 {
@@ -16,19 +18,12 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view("admin/categories");
+        return [
+            'categories' => ProductCategory::getRepository()->findAll()
+        ];
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $repo = ProductCategory::getRepository();
-        return $repo->findAll();
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -41,27 +36,9 @@ class CategoryController extends Controller
         return ['status' => true];
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
 
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.
@@ -83,8 +60,14 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
+        $status = 200;
         $product = ProductCategory::getRepository()->findById($id);
-        $result = ModelManager::deleteInstance($product);
-        return ['status' => $result];
+        try {
+            $result = ModelManager::deleteInstance($product);
+        } catch(\PDOException $e) {
+            Log::error($e->getMessage());
+            $status = 500;
+        }
+        return ['status' => $status];
     }
 }
