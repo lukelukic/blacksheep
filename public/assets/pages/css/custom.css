@@ -1,0 +1,26 @@
+.filterBox{
+  width:100%;
+  max-width: 100%;
+  height: auto;
+  background: #eaeaea;
+  padding-left: 10px;
+  border:1px solid #ccc;
+  border-radius:10px;
+  margin-bottom:7px
+}
+.reducecontrol{
+  height:24px
+}
+.reducebtn{
+  height:24px;
+  font-size:10px
+}
+.reducediv{
+  width:200px
+}
+@-moz-document url-prefix() {
+.filterBox input{
+  margin-right: 5px;
+}
+
+}

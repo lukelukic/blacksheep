@@ -27,6 +27,7 @@
     <link href="{{ asset("assets/plugins/owl.carousel/assets/owl.carousel.css") }}" rel="stylesheet">
     <link href='{{ asset("assets/pages/css/components.css") }}' rel="stylesheet">
     <link href='{{ asset("assets/pages/css/slider.css") }}' rel="stylesheet">
+    <link href="{{ asset("assets/pages/css/custom.css") }}" rel="stylesheet" type="text/css">
     <link href="{{ asset("assets/pages/css/style-shop.css") }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('assets/corporate/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/corporate/css/style-responsive.css') }}" rel="stylesheet">
@@ -263,4 +264,3 @@ echo "<script> var base_url = '". url("/") .  "';</script>";
 </body>
 <!-- END BODY -->
 </html>
-

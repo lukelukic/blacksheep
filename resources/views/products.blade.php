@@ -6,49 +6,57 @@
     <div class="container">
         <!-- BEGIN SIDEBAR -->
         <div class="sidebar col-md-3 col-sm-4">
-            <ul class="list-group margin-bottom-25 sidebar-menu">
-                <?php
-                $fifi = [
-                    'artikli' => [
-                        'oprema za mobilni'=>[
-                            'maske' => [
-                                'maske za iphone' => [
-                                    'iphone7',
-                                    'iphone8'],
-                                'maske za lg' => [
-                                    'lg nexus',
-                                    'lg zvecka'],
-                                'univerzalne'=>[]
-                            ]
-                        ],
-                        'oprema za mobilni2'=>[
-                            'maske2' => [
-                                'maske za iphone2' => [
-                                    'iphone72',
-                                    'iphone82'],
-                                'maske za lg2' => [
-                                    'lg nexus2',
-                                    'lg zvecka2'],
-                                'univerzalne2'=>[]
-                            ]
-                        ]
-
-                    ]
-                ];
-                ?>
-                @component('components.categories',$fifi)@endcomponent
-
-                {{--<li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Oprema za laptop</a></li>--}}
-                {{--<li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Oprema za racunar</a></li>--}}
-                {{--<li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Video nadzor</a></li>--}}
-                {{--<li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Auto oprema</a></li>--}}
-                {{--<li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Kategorija X</a></li>--}}
-                {{--<li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Kategorija Y</a></li>--}}
-                {{--<li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Kategorija Z</a></li>--}}
-                {{--<li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Kategorija M</a></li>--}}
-                {{--<li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Kategorija N</a></li>--}}
-            </ul>
+          <?php
+          $data2 = [
+            'details' =>
+              [
+                [
+                  'name' => 'Maske'
+                ],
+                [
+                  'name' => 'Punjaci'
+                ]
+              ]
+          ]
+           ?>
+           @component('components.categories',$data2)@endcomponent
+          Tip
+          <?php
+          $data3 = [
+            'details' => [
+              [
+                'name' => 'Juliette'
+              ],
+              [
+                'name' => 'Pierre Cardin'
+              ]
+            ]
+          ];
+          $data4 = [
+            'details' => [
+              [
+                'name' => 'LG'
+              ],
+              [
+                'name' => 'Samsung'
+              ]
+            ]
+          ]
+          ?>
+          Tip
+          <div class='filterBox'>
+          @component('components.type',$data3)@endcomponent
         </div>
+        Brend
+        <div class='filterBox'>
+          @component('components.brand',$data4)@endcomponent
+        </div>
+<!-- <input type="submit" value="Submit"> -->
+        </div>
+
+<!-- <input type="submit" value="Submit"> -->
+
+
         <!-- BEGIN CONTENT -->
         <div class="col-md-9 col-sm-7">
             <div class="row list-view-sorting clearfix">
@@ -56,7 +64,10 @@
                     <a href="javascript:;"><i class="fa fa-th-large"></i></a>
                     <a href="javascript:;"><i class="fa fa-th-list"></i></a>
                 </div>
+                <div class="col-md-10 col-sm-10">
                 @component('components.show_and_sort', $data)@endcomponent
+                @component('components.search_category', $data2)@endcomponent
+              </div>
             </div>
 
         @component('components.product',$data)@endcomponent

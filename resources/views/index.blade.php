@@ -108,74 +108,24 @@
 
             <!-- BEGIN SIDEBAR & CONTENT -->
             <div class="row margin-bottom-40 ">
-                <!-- BEGIN SIDEBAR -->
-                <div class="sidebar col-md-3 col-sm-4">
-                    <ul class="list-group margin-bottom-25 sidebar-menu">
-                <?php
-                $picka = [
-                    'artikli' => [
-                        'oprema za mobilni'=>[
-                    'maske' => [
-                        'maske za iphone' => [
-                            'iphone7',
-                            'iphone8'],
-                        'maske za lg' => [
-                            'lg nexus',
-                            'lg zvecka'],
-                        'maske za asus' => [
-                            'lg nexus',
-                            'lg zvecka']
-                    ],
-                            'picke materine' => [
-                                'maske za iphone' => [
-                                    'iphone7',
-                                    'iphone8'],
-                                'maske za lg' => [
-                                    'lg nexus',
-                                    'lg zvecka'],
-                                'maske za asus' => [
-                                    'lg nexus',
-                                    'lg zvecka']
-                            ]
-                        ],
-                        'oprema za mobilni2'=>[
-                            'maske2' => [
-                                'maske za iphone2' => [
-                                    'iphone72',
-                                    'iphone82'],
-                                'maske za lg2' => [
-                                    'lg nexus2',
-                                    'lg zvecka2'],
-                                'univerzalne2'=>[]
-                            ]
-                        ]
+          <!-- BEGIN SIDEBAR -->
+          <div class="sidebar col-md-3 col-sm-4">
+            <ul class="list-group margin-bottom-25 sidebar-menu">
+              <li class="list-group-item clearfix dropdown">
+                <a href="shop-product-list.html">
+                  <i class="fa fa-angle-right"></i>
+                  Maske
+                </a>
+              </li>
+              <li class="list-group-item clearfix dropdown">
+                <a href="shop-product-list.html">
+                  <i class="fa fa-angle-right"></i>
+                  Punjaci
+                </a>
+              </li>
+            </ul>
+          </div>
 
-                    ]
-                ];
-                        ?>
-                @component('components.categories',$picka)@endcomponent
-
-                        {{--<li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Oprema za laptop</a></li>--}}
-                        {{--<li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Oprema za racunar</a></li>--}}
-                        {{--<li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Video nadzor</a></li>--}}
-                        {{--<li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Auto oprema</a></li>--}}
-                        {{--<li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Kategorija X</a></li>--}}
-                        {{--<li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Kategorija Y</a></li>--}}
-                        {{--<li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Kategorija Z</a></li>--}}
-                        {{--<li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Kategorija M</a></li>--}}
-                        {{--<li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Kategorija N</a></li>--}}
-                    </ul>
-                </div>
-                <!-- END SIDEBAR -->
-                <!-- BEGIN CONTENT -->
-                <div class="col-md-9 col-sm-8">
-                    <h2>Najtrazenije!</h2>
-                    <div class="owl-carousel owl-carousel3">
-                        @component('layouts.components.popular_product', $data)@endcomponent
-                    </div>
-                </div>
-                <!-- END CONTENT -->
-            </div>
             <!-- END SIDEBAR & CONTENT -->
 
             <!-- BEGIN TWO PRODUCTS & PROMO -->
