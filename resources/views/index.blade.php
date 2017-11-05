@@ -109,22 +109,9 @@
             <!-- BEGIN SIDEBAR & CONTENT -->
             <div class="row margin-bottom-40 ">
           <!-- BEGIN SIDEBAR -->
-          <div class="sidebar col-md-3 col-sm-4">
-            <ul class="list-group margin-bottom-25 sidebar-menu">
-              <li class="list-group-item clearfix dropdown">
-                <a href="shop-product-list.html">
-                  <i class="fa fa-angle-right"></i>
-                  Maske
-                </a>
-              </li>
-              <li class="list-group-item clearfix dropdown">
-                <a href="shop-product-list.html">
-                  <i class="fa fa-angle-right"></i>
-                  Punjaci
-                </a>
-              </li>
-            </ul>
-          </div>
+
+            @component('components.sidebar')@endcomponent
+
 
             <!-- END SIDEBAR & CONTENT -->
 

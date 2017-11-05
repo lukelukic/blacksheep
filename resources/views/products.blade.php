@@ -5,54 +5,7 @@
 <div class="main">
     <div class="container">
         <!-- BEGIN SIDEBAR -->
-        <div class="sidebar col-md-3 col-sm-4">
-          <?php
-          $data2 = [
-            'details' =>
-              [
-                [
-                  'name' => 'Maske'
-                ],
-                [
-                  'name' => 'Punjaci'
-                ]
-              ]
-          ]
-           ?>
-           @component('components.categories',$data2)@endcomponent
-          Tip
-          <?php
-          $data3 = [
-            'details' => [
-              [
-                'name' => 'Juliette'
-              ],
-              [
-                'name' => 'Pierre Cardin'
-              ]
-            ]
-          ];
-          $data4 = [
-            'details' => [
-              [
-                'name' => 'LG'
-              ],
-              [
-                'name' => 'Samsung'
-              ]
-            ]
-          ]
-          ?>
-          Tip
-          <div class='filterBox'>
-          @component('components.type',$data3)@endcomponent
-        </div>
-        Brend
-        <div class='filterBox'>
-          @component('components.brand',$data4)@endcomponent
-        </div>
-<!-- <input type="submit" value="Submit"> -->
-        </div>
+        @component('components.sidebar')@endcomponent
 
 <!-- <input type="submit" value="Submit"> -->
 
@@ -66,7 +19,7 @@
                 </div>
                 <div class="col-md-10 col-sm-10">
                 @component('components.show_and_sort', $data)@endcomponent
-                @component('components.search_category', $data2)@endcomponent
+                @component('components.search_category')@endcomponent
               </div>
             </div>
 
