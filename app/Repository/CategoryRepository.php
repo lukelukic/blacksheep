@@ -9,21 +9,16 @@
 namespace App\Repository;
 
 
+use App\Category;
 use App\ProductCategory;
 
 class CategoryRepository extends AbstractRepository
 {
-    public function __construct(ProductCategory $model)
+    public function __construct(Category $model)
     {
         parent::__construct($model);
     }
 
-    public function findAll()
-    {
-        return $this->model->all();
-    }
     
-    public function findById($id) {
-        return $this->model->find($id);
-    }
+
 }

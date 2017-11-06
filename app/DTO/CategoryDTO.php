@@ -9,26 +9,27 @@
 namespace App\DTO;
 
 
-class CategoryDTo extends ObjectDTO
+class CategoryDTO extends ObjectDTO
 {
     public $name;
-    public $parent_id;
 
     public function getModelClass()
     {
-        return "App\ProductCategory";
+        return "App\Category";
     }
 
     public function getMessages()
     {
-        return [];
+        return [
+            'name.required' => 'Polje za ime kategorije je obavezno.',
+            'name.unique' => "Kategorija sa istim imenom vec postoji."
+        ];
     }
 
     public function getRules()
     {
         return  [
-            'name' => 'required|min:3',
-            'parent_id' => "numeric"
+            'name' => 'required|min:3|unique:categories'
         ];
     }
 }

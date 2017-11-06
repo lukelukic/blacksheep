@@ -18,4 +18,13 @@ class AbstractRepository
     {
         $this->model = $model;
     }
+
+    public function findAll()
+    {
+        return $this->model->all();
+    }
+
+    public function findById($id) {
+        return $this->model->find($id);
+    }
 }

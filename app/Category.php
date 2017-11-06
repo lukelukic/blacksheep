@@ -25,7 +25,7 @@ class Category extends Model implements Repository
 
     public static function getRepository()
     {
-        return new CategoryRepository(new ProductCategory());
+        return new CategoryRepository(new Category());
     }
 
 

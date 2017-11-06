@@ -63,7 +63,10 @@ Route::post('/auth', function(Request $request) {
 //Admin group
 Route::group(['middleware' => 'admin'], function(){
    Route::resource("admin/products", 'Admin\ProductController');
-    Route::resource("/admin/categories", "Admin\CategoryController");
+   Route::resource("admin/categories", "Admin\CategoryController");
+   Route::resource("admin/orders", "Admin\OrderController");
+   Route::resource("admin/colors", "Admin\ColorController");
+   Route::resource("admin/custom_case", "Admin\CustomCaseController");
 });
 
 

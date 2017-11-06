@@ -19,10 +19,8 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::getRepository()->findAll();
-        $categories = ProductCategory::getRepository()->findAll();
         return [
-            'products' => $products,
-            'categories' => $categories
+            'products' => $products
         ];
     }
 

@@ -17,6 +17,7 @@ class CreateOrderProductTable extends Migration
             $table->unsignedInteger("order_id");
             $table->unsignedInteger("product_id");
             $table->timestamps();
+            $table->integer("amount");
             $table->primary(["order_id", "product_id"]);
 
             //Foreign keys
