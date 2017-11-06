@@ -36,19 +36,21 @@ class ColorController extends Controller
     public function store(Request $request)
     {
         $dto = new ColorDTO();
-        $status = 201;
+        $status = 400;
+        $data = null;
         RequestToObject::transform($dto);
         $validator = new DTOValidator($dto);
         if ($validator->isValid()) {
             try {
                 ModelManager::saveInstance(Color::class, $dto);
+                $status = 201;
             } catch (QueryException $e) {
                 Log::error($e->getMessage());
             }
         } else {
-            $status = 400;
+            $data = $validator->getErrors();
         }
-        return ['status' => $status];
+        return response($data, $status);
     }
 
 
@@ -62,7 +64,27 @@ class ColorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $status = 404;
+        $data = null;
+        $model = Color::find($id);
+        if($model) {
+            $dto = new ColorDTO();
+            RequestToObject::transform($dto);
+            $validator = new DTOValidator($dto);
+            if ($validator->isValid()) {
+                try {
+                    ModelManager::updateInstance($model, $dto);
+                    $status = 201;
+                } catch (QueryException $e) {
+                    Log::error($e->getMessage());
+                }
+            } else {
+                $data = $validator->getErrors();
+            }
+        }
+
+        return response($data, $status);
     }
 
     /**
@@ -73,19 +95,17 @@ class ColorController extends Controller
      */
     public function destroy($id)
     {
-        $status = 200;
+        $status = 404;
         $color = Color::find($id);
         if($color) {
             try {
                 $result = ModelManager::deleteInstance($color);
+                $status = 200;
             } catch(\PDOException $e) {
                 Log::error($e->getMessage());
                 $status = 500;
             }
-        } else {
-            $status = 404;
         }
-
-        return ['status' => $status];
+        return response(null, $status);
     }
 }

@@ -11,7 +11,7 @@ namespace App\DTO;
 
 class ColorDTO extends ObjectDTO
 {
-    public $rgb;
+    public $hex;
 
     public function getModelClass()
     {
@@ -20,14 +20,17 @@ class ColorDTO extends ObjectDTO
 
     public function getMessages()
     {
-        return [];
+        return [
+            'hex.required' => "Boja nije odabrana.",
+            'hex.hexcolor' => "Boja mora biti u heksadecimalnom formatu.",
+            'hex.unique' => "Odabrana boja vec postoji."
+        ];
     }
 
     public function getRules()
     {
         return  [
-            'rgb' => 'required|hexcolor|unique:colors',
-            'parent_id' => "numeric"
+            'hex' => 'required|hexcolor|unique:colors',
         ];
     }
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "c63846c4b0887eeb5a397fcb653380e1",
+    "content-hash": "e35b21a0fee752fa9a87d56d2f77e4ac",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -487,6 +487,65 @@
                 "fixtures"
             ],
             "time": "2017-08-15T16:48:10+00:00"
+        },
+        {
+            "name": "intervention/validation",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Intervention/validation.git",
+                "reference": "94fb31a5f6617119c0fd49c3cb58cf074bcd4aa9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Intervention/validation/zipball/94fb31a5f6617119c0fd49c3cb58cf074bcd4aa9",
+                "reference": "94fb31a5f6617119c0fd49c3cb58cf074bcd4aa9",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~4|~5",
+                "illuminate/validation": "~4|~5",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Intervention\\Validation\\ValidationServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Intervention\\Validation\\": "src/Intervention/Validation"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Oliver Vogel",
+                    "email": "oliver@olivervogel.net",
+                    "homepage": "http://olivervogel.net/"
+                }
+            ],
+            "description": "Additional Validator Functions for the Laravel Framework",
+            "keywords": [
+                "BIC",
+                "IBAN",
+                "ISBN",
+                "ISIN",
+                "creditcard",
+                "laravel",
+                "validation",
+                "validator"
+            ],
+            "time": "2017-06-29T17:58:28+00:00"
         },
         {
             "name": "jakub-onderka/php-console-color",
