@@ -18,14 +18,14 @@ class OrderRepository extends AbstractRepository
         parent::__construct($model);
     }
 
-    public function findAll()
+    public function newOrders()
     {
         return $this->model->with(
             [
                 'products.picture',
                 'products.prices' => function($query) {
                     $query->orderBy('created_at', 'desc')->first();
-                }
-            ])->get();
+                },
+            ])->where('status_id', 1)->get();
     }
 }
