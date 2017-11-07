@@ -71,7 +71,7 @@ Route::group(['middleware' => 'admin'], function(){
    Route::resource("admin/categories", "Admin\CategoryController");
    Route::resource("admin/orders", "Admin\OrderController");
    Route::resource("admin/colors", "Admin\ColorController");
-   Route::resource("admin/custom_case", "Admin\CustomCaseController");
+   Route::resource("admin/custom-case", "Admin\CustomCaseController");
 });
 
 

@@ -33,6 +33,18 @@
                             </div>
                         </div>
                     @endif
+
+                    @if (session('errors'))
+                        <div class="row">
+                            <div class="alert alert-danger col-md-4 col-md-offset-4">
+                                <ul>
+                                    @foreach (session('errors') as $error)
+                                        <li>{{ $error[0] }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
 
