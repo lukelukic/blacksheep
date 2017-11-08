@@ -2,6 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\DTO\CustomCaseDTO;
+use App\DTO\PictureDTO;
+use App\ModelManager;
+use App\OrderStatus;
+use App\Picture;
+use App\Services\DTOValidator;
+use App\Services\RequestToObject;
+use App\User;
 use Illuminate\Http\Request;
 
 class CustomCase extends Controller
@@ -16,69 +24,37 @@ class CustomCase extends Controller
         return view('custom_case');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function add(Request $request)
     {
-        //
-    }
+        if ($request->has("add")) {
+           $dto = new CustomCaseDTO();
+           RequestToObject::transform($dto);
+           $pictureDTO = new PictureDTO();
+           $pictureDTO->file = $request->file("file");
+           $validator = new DTOValidator($pictureDTO);
+           if(!$validator->isValid()) {
+                return redirect()->back()->with('errors', $validator->getErrors());
+           } else {
+               $fileName = $request->file('file')->getFilename() . "_" . mktime(time()) . "." . $request->file('file')->extension();
+               $pictureDTO->file = $fileName;
+               $picture = new Picture();
+               $picture->alt = "custom case";
+               $picture->file = $fileName;
+               $picture->save();
+               $request->file('file')->move(base_path("/public/assets/pages/img/custom_case"), $fileName);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+               $user = User::getRepository()->findById(1);
+               $order_status = OrderStatus::find(1);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+               $custom_case = new \App\CustomCase();
+               $custom_case->user()->associate($user);
+               $custom_case->order_status_id = $order_status->id;
+               $custom_case->picture_id = $picture->id;
+               $custom_case->save();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+               return redirect()->back()->with("success", "Porudzbina uspesno dodata! Kontaktiracemo vas u najkracem mogucem roku.");
+           }
+        }
     }
 }

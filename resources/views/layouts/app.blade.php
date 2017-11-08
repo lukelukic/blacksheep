@@ -18,8 +18,8 @@
     <meta content="oprema za mobilne telefone, usb kabal, staklo za telefon, maska za telefon, baterija za telefon" name="keywords">
     <meta content="keenthemes" name="author">
     <link rel="shortcut icon" href="favicon.ico">
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|PT+Sans+Narrow|Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all" rel="stylesheet" type="text/css">
+    <link href="{{ asset("assets/plugins/google_apis/first.css") }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset("assets/plugins/google_apis/second.css") }}" rel="stylesheet" type="text/css">
     <link href="{{ asset("assets/plugins/font-awesome/css/font-awesome.min.css") }}" rel="stylesheet">
     <link href="{{ asset("assets/plugins/bootstrap/css/bootstrap.min.css") }}" rel="stylesheet">
     <link href="{{ asset("assets/pages/css/animate.css") }}" rel="stylesheet">
@@ -254,7 +254,6 @@
         Layout.initOWL();
         Layout.initImageZoom();
         Layout.initTouchspin();
-        Layout.initTwitter();
     });
 </script>
 <?php

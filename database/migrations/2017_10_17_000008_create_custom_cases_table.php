@@ -16,10 +16,13 @@ class CreateCustomCasesTable extends Migration
         Schema::create('custom_cases', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->string("comment");
             $table->unsignedInteger("user_id");
             $table->unsignedInteger("picture_id");
+            $table->unsignedInteger("order_status_id");
 
             //Foreign keys
+            $table->foreign('order_status_id')->references('id')->on('order_statuses');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('picture_id')->references('id')->on('pictures');
         });

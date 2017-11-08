@@ -35,15 +35,20 @@ Route::get('/cart', 'Cart@index');
 Route::get('/checkout', 'Checkout@index');
 Route::get('/sale', 'Clearance@index');
 Route::get('/orders', 'Orders@index');
-Route::get('/products', 'Products@index');
 Route::get('/contact', 'Contact@index');
-Route::get('/custom-case', 'CustomCase@index');
 Route::get('/delivery', 'Delivery@index');
 Route::get('/faq', 'Faq@index');
 Route::get('/privacy-policy', 'PrivacyPolicy@index');
-Route::get('/search', 'Products@search');
 Route::post("/contact/send", "Contact@send");
+/* Products */
 Route::get("/products/{id}", "Products@product");
+Route::get('/products', 'Products@index');
+Route::get('/search', 'Products@search');
+/* Custom Case */
+Route::get('/custom-case', 'CustomCase@index');
+Route::post('/custom-case/add', 'CustomCase@add');
+
+
 /*
  * Login ruta, kratka pa nema potrebe za kontrolerom
  */
@@ -66,7 +71,7 @@ Route::group(['middleware' => 'admin'], function(){
    Route::resource("admin/categories", "Admin\CategoryController");
    Route::resource("admin/orders", "Admin\OrderController");
    Route::resource("admin/colors", "Admin\ColorController");
-   Route::resource("admin/custom_case", "Admin\CustomCaseController");
+   Route::resource("admin/custom-case", "Admin\CustomCaseController");
 });
 
 
