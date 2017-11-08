@@ -51,8 +51,7 @@ class CustomCase extends Controller
                $custom_case->order_status_id = $order_status->id;
                $custom_case->picture_id = $picture->id;
                $custom_case->save();
-
-
+               
                return redirect()->back()->with("success", "Porudzbina uspesno dodata! Kontaktiracemo vas u najkracem mogucem roku.");
            }
         }

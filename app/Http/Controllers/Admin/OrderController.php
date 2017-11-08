@@ -30,15 +30,5 @@ class OrderController extends Controller
         var_dump($request->all());
         return response(null, $status);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    
 }

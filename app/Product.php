@@ -30,7 +30,7 @@ class Product extends Model implements Repository
 
     public function picture()
     {
-        return $this->hasOne("App\Picture", 'id');
+        return $this->hasOne("App\Picture", 'id', 'picture_id');
     }
 
     public static function getRepository()

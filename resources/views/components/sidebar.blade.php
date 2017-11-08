@@ -1,52 +1,28 @@
 <div class="sidebar col-md-3 col-sm-4">
   <?php
   $data2 = [
-    'details' =>
-      [
-        [
-          'name' => 'Maske'
-        ],
-        [
-          'name' => 'Punjaci'
-        ]
-      ]
-  ]
-   ?>
-   @component('components.categories',$data2)@endcomponent
-  Tip
-  <?php
-  $data3 = [
-    'details' => [
-      [
-        'id' => 1,
-        'name' => 'Juliette'
-      ],
-      [
-        'id' => 2,
-        'name' => 'Pierre Cardin'
-      ]
+    'categories' => [
+        [ 'name' => "Kategorija1", "id" => 1 ],
+        [ 'name' => "Kategorija2", "id" => 2 ],
     ]
   ];
-  $data4 = [
-    'details' => [
-      [
-        'id' => 1,
-        'name' => 'LG'
-      ],
-      [
-        'id' => 2,
-        'name' => 'Samsung'
-      ]
-    ]
-  ]
-  ?>
-  Tip
-
+    $data3 = [
+            'categories' => [
+                    [ 'name' => "Kategorija1", "id" => 1 ],
+                    [ 'name' => "Kategorija2", "id" => 2 ],
+            ]
+    ];
+    $data4 = [
+            'categories' => [
+                    [ 'name' => "Kategorija1", "id" => 1 ],
+                    [ 'name' => "Kategorija2", "id" => 2 ],
+            ]
+    ];
+   ?>
+   @component('components.categories',$data2)@endcomponent
+      Brend
   @component('components.checkbox_sidebar',$data3)@endcomponent
-
-Brend
-
+      Tip
   @component('components.checkbox_sidebar',$data4)@endcomponent
 
-<!-- <input type="submit" value="Submit"> -->
 </div>
