@@ -18,7 +18,7 @@
             <div class="row margin-bottom-35 ">
                 <div class="col-md-6 two-items-bottom-items">
                     <div class="owl-carousel owl-carousel2">
-                        @component('components.product',$data)@endcomponent
+                        @component('components.product',$data['latestProducts'])@endcomponent
                     </div>
                 </div>
             </div>

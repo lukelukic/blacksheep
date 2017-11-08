@@ -15,6 +15,8 @@ class Home extends Controller
      */
     public function index(Request $request)
     {
+        //$items = session()->pull("orderItems");
+        //dd($items[0]['item']->picture->file);
         $repo = Product::getRepository();
         $latest = $repo->findAll();
         return view('index', [

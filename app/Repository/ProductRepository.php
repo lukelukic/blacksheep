@@ -41,47 +41,18 @@ class ProductRepository extends AbstractRepository
         return $product->category->name;
     }
 
-    public function latestProducts() {
+    public function latestProducts()
+    {
         return $this->model->where('is_active', 1)->orderBy('id', "desc")->take(5)->get();
     }
 
-    public function specialProducts() {
+    public function specialProducts()
+    {
         return $this->model->where(['is_active' => 1, 'special' => 1])->orderBy('id', "desc")->take(5)->get();
     }
 
-    public function latestWithNum($num) {
-        return $this->model->where('is_active', 1)->orderBy('id', "desc")->take($num)->get();
-    }
 
-    public function sort(Request $request) {
-        $products = $this->model->where('is_active', 1)->get();
-        switch($request->get("sort")) {
-            case "name_asc":
-                $products = $products->sortBy('name');
-                break;
-            case "id_asc":
-                $products = $products->sortBy('id');
-                break;
-            case "name_desc":
-                $products = $products->sortByDesc('name');
-                break;
-            case "price_asc":
-                $products = $products->sortBy(function ($product){
-                   return  $product->prices->first()->price;
-                });
-                break;
-            case "price_desc":
-                $products = $products->sortByDesc(function ($product){
-                    return  $product->prices->first()->price;
-                });
-                break;
-            default:
-                $products = $products->sortByDesc('id');
-                break;
-                break;
-        }
-        return $products;
-    }
+
 
     public function productsOnSale()
     {

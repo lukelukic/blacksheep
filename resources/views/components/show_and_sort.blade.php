@@ -2,9 +2,9 @@
     <div class="pull-right">
         <label class="control-label">Sortiraj&nbsp;po:</label>
         <select class="form-control input-sm" onchange="location=this.value" id="sort">
-           @foreach($sort as $item)
-                <option value="{{ url($item['url']) }}" >{{ $item['text'] }}</option>
-            @endforeach
+            <option value="1">Nesto</option>
+            <option value="2">Nesto drugo</option>
+            <option value="3">Nesto trece</option>
         </select>
     </div>
 

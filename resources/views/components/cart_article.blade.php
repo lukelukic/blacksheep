@@ -11,7 +11,7 @@
         @foreach(session('orderItems') as $orderItem)
             <tr>
                 <td class="goods-page-image">
-                    <a href="javascript:;"><img src="{{ asset("/assets/pages/img/products/" . $orderItem['item']->pictures[0]->file)}}"  alt="{{ $orderItem['item']->pictures[0]->alt }}"></a>
+                    <a href="javascript:;"><img src="{{ asset("/assets/pages/img/products/" . $orderItem['item']->picture->file)}}"  alt="{{ $orderItem['item']->picture->alt }}"></a>
                 </td>
                 <td class="goods-page-description">
                     <h3><a href="javascript:;">{{ $orderItem['item']->name }}</a></h3>

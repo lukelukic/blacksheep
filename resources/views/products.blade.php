@@ -5,7 +5,7 @@
 <div class="main">
     <div class="container">
         <!-- BEGIN SIDEBAR -->
-        @component('components.sidebar')@endcomponent
+        @component('components.sidebar', $data)@endcomponent
 
 <!-- <input type="submit" value="Submit"> -->
 
@@ -18,12 +18,14 @@
                     <a href="javascript:;"><i class="fa fa-th-list"></i></a>
                 </div>
                 <div class="col-md-10 col-sm-10">
-                @component('components.show_and_sort', $data)@endcomponent
+                @component('components.show_and_sort')@endcomponent
                 @component('components.search_category')@endcomponent
               </div>
             </div>
 
-        @component('components.product',$data)@endcomponent
+       <div class="col-md-3">
+           @component('components.product',$data)@endcomponent
+       </div>
 
                 <!-- PRODUCT ITEM END -->
             </div>

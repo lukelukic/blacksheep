@@ -19,6 +19,9 @@ class CategoryRepository extends AbstractRepository
         parent::__construct($model);
     }
 
-    
+    public function findByName($categoryName)
+    {
+        return $this->model->where('name','=',$categoryName)->get()[0];
+    }
 
 }
