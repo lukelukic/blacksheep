@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Brand;
 use App\Category;
 use App\DTO\BrandDTO;
-use App\DTO\CategoryDTo;
+use App\DTO\CategoryDTO;
 use App\DTO\TypeDTO;
 use App\ModelManager;
 use App\ProductCategory;

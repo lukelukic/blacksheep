@@ -1,0 +1,35 @@
+.nev{
+  display:none
+}
+.chbWidth{
+  width:13px
+}
+/*.colorDiv{
+  width:20px;
+  height:20px;
+  border:1px solid #000
+}*/
+/*.check-with-label:checked + .label-for-check {
+  border:2px solid red;
+}*/
+.label-for-check{
+  border:1px solid #ccc;
+  padding:10px;
+  margin:0 0 10px;
+  display:block;
+}
+label:hover{
+  background:#eee;
+  cursor:pointer
+}
+.choosenColors{
+  width:20px;
+  height: 20px;
+  display:inline-block;
+  padding:10px;
+  margin-right: 10px;
+  border:1px solid #ccc
+}
+.label-for-check + input[name=chooseColor]:checked{
+  border:10px solid red;
+}
