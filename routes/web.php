@@ -42,6 +42,7 @@ Route::get('/privacy-policy', 'PrivacyPolicy@index');
 Route::post("/contact/send", "Contact@send");
 /* Products */
 Route::get("/products/{category}", "Products@productsByCategory");
+Route::get("/products/product/{id}", "Products@product");
 Route::get('/products', 'Products@index');
 Route::get('/search', 'Products@search');
 /* Custom Case */

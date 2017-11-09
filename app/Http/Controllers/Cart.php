@@ -41,7 +41,8 @@ class Cart extends Controller
     public function place(Request $request)
     {
         $id = $request->post('id');
-        $product = \App\Product::find($id);
+        $product = Product::getRepository()->findById($id);
+
         if(!session('orderItems')) {
             session(['orderItems' => [
                 [

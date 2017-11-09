@@ -21,16 +21,20 @@ class ProductRepository extends AbstractRepository
         parent::__construct($model);
     }
 
+    public function findById($id)
+    {
+        return $this->model->with('picture','prices', 'colors')->find($id);
+    }
+
     public function findAll()
     {
         return $this->model->all();
     }
 
-    public function getCategoryName(Product $product)
+    public function search($keyword)
     {
-        return $product->category->name;
+        return $this->model->where("name", "like", "%$keyword%")->get();
     }
-
     public function latestProducts()
     {
         return $this->model->where('is_active', 1)->orderBy('id', "desc")->take(5)->get();
@@ -40,8 +44,6 @@ class ProductRepository extends AbstractRepository
     {
         return $this->model->where(['is_active' => 1, 'special' => 1])->orderBy('id', "desc")->take(5)->get();
     }
-
-
 
 
     public function productsOnSale()

@@ -22,9 +22,14 @@ class Products extends Controller
     public function index(Request $request)
     {
 
+        if($request->has("keyword")) {
+            $products = Product::getRepository()->search($request->get("keyword"));
+        } else {
+            $products = Product::getRepository()->findAll();
+        }
         return view('products', [
             'data' => [
-                'products' => Product::getRepository()->findAll(),
+                'products' => $products,
                 'categories' => Category::getRepository()->findAll()
             ]
         ]);
@@ -48,6 +53,11 @@ class Products extends Controller
                 'brands' => $brands
             ]
         ]);
+    }
+
+    public function product($id)
+    {
+        return [Product::getRepository()->findById($id)];
     }
 
 

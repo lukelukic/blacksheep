@@ -27,7 +27,7 @@
     <div class="product-page-cart">
             <div class="product-quantity">
                 <input id="product-quantity" type="text" value="1" readonly name="productQuantity" class="form-control input-sm">
-                <input type="hidden" id="productId" name="productId" value="">
+                <input type="hidden" id="id" name="productId" value="">
             </div>
             <button class="btn btn-primary" type="submit">Dodaj u korpu</button>
         </form>
@@ -37,12 +37,13 @@
 <script>
     function getProductDetails(id) {
         $.ajax({
-            url : "http://localhost/blacksheep/public/index.php/products/" + id,
+            url : "http://localhost/blacksheep/public/index.php/products/product/" + id,
             success : function(data) {
-                showProductDetails(data);
+                console.log(data);
+                showProductDetails(data[0]);
             },
             error : function(xhr, status, error) {
-                console.log(error);
+                console.log(xhr);
             }
         });
     }
@@ -52,8 +53,8 @@
         picture.src = "http://localhost/blacksheep/public/assets/pages/img/products/" + product.picture.file;
         picture.alt = product.picture.alt;
 
-        $("#offerPrice").html(product.price);
-        $("#actualPrice").html(product.price);
+        $("#offerPrice").html(product.prices[1].price);
+        $("#actualPrice").html(product.prices[0].price);
         $("#productName").html(product.name);
         $("#productDescription").html(product.description);
 
@@ -64,11 +65,11 @@
                 option.textContent = "";
                 option.id = item.id;
                 option.value = item.rgb;
-                $(option).css("background-color", item.rgb);
+                $(option).css("background-color", item.hex);
                 $("#productColors").append(option);
             });
         }
-        $("#productId").val(product.id);
+        $("#id").val(product.id);
 
         document.querySelector("#productColors").addEventListener("change", function(event){
            if(event.target.value != 0) {

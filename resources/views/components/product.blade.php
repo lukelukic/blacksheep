@@ -1,4 +1,3 @@
-
                 <div class="product-item">
                     <div class="pi-img-wrapper">
                         <img src="{{ asset('assets/pages/img/products/' . $product->picture->file) }}" class="img-responsive" alt="{{ $product->picture->alt }}">
@@ -10,13 +9,16 @@
                     <h3><a href="#" id="productName">{{ $product['name'] }}</a></h3>
                     <div class="pi-price"><span id="price">{{ $product->prices->first()['price'] }}</span> RSD</div>
                     <form action="{{ url("/order/place") }}" method="post">
-                        <input type="hidden" id="productId" value="{{ $product['id'] }}">
+                        <input type="hidden" id="productId" name="id" value="{{ $product['id'] }}">
                         <input type="submit" name="order" class="btn btn-default add2cart" value="Dodaj u korpu">
                     </form>
                     @if($product['is_offer'])
                         <div class="sticker sticker-sale"></div>
                     @endif
-                    <div class="sticker sticker-new"></div>
+                    @if(strtotime($product['created_at']) >= strtotime("-10 days"))
+                        <div class="sticker sticker-new"></div>
+                    @endif
+
                     <input type="hidden" name="productBrand" value="{{ $product->brand->id }}">
                 </div>
 
