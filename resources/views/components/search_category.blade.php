@@ -1,8 +1,22 @@
-<form action="{{ url("/products") }}" method="get">
+
     <div class="input-group reducediv pull-right">
-        <input type="text" placeholder="Pretraži" name="keyword" class="form-control reducecontrol"/>
+        <input type="text" placeholder="Pretraži" id="searchProducts" class="form-control reducecontrol"/>
             <span class="input-group-btn">
-                      <button class="btn btn-primary reducebtn" type="submit"><i class='fa fa-search'></i></button>
+                      <button class="btn btn-primary reducebtn"><i class='fa fa-search'></i></button>
             </span>
     </div>
-</form>
+
+    <script>
+        $("#searchProducts").keyup(function(event) {
+            var keyword = event.target.value.toLowerCase().trim();
+            var products = document.getElementsByClassName("product-item");
+            for(let i=0; i < products.length; i++) {
+                let productName = $(products[i]).find("#productName").html().toLowerCase();
+                if(productName.indexOf(keyword) !== -1) {
+                    $(products[i]).parent().show();
+                } else {
+                    $(products[i]).parent().hide();
+                }
+            }
+        });
+    </script>

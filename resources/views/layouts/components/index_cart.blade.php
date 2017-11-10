@@ -18,7 +18,7 @@
             @if(Session::get("orderItems"))
                 @foreach(Session::get("orderItems") as $pr)
                     <li>
-                        <a href=""><img src="{{ asset("assets/pages/img/products/" . $pr['item']->pictures[0]->file) }}" alt="{{ $pr['item']->pictures[0]->alt }}" width="37" height="34"></a>
+                        <a href=""><img src="{{ asset("assets/pages/img/products/" . $pr['item']->picture->file) }}" alt="{{ $pr['item']->picture->alt }}" width="37" height="34"></a>
                         <span class="cart-content-count">x {{ $pr['amount'] }}</span>
                         <strong><a href="{{ url("/cart") }}">{{ $pr['item']->name }}</a></strong>
                         <em>{{ $pr['item']->prices[0]->price * $pr['amount'] }} RSD</em>

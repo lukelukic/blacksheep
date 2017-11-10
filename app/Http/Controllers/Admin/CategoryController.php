@@ -49,17 +49,17 @@ class CategoryController extends Controller
 
         //Ako je prosledjen tip kategorije, pravi se jedna od 3 hijerarhijske kategorije (Brand, Kategorija ili Tip)
         if ($request->has('type')) {
-            switch ($request->get('type')) {
-                case 'brand':
-                    $dto = new BrandDTO();
-                    break;
-                case 'category':
-                    $dto = new CategoryDTO();
-                    break;
-                case 'type':
-                    $dto = new TypeDTO();
-                    break;
-            }
+                switch ($request->get('type')) {
+                    case 'brand':
+                        $dto = new BrandDTO();
+                        break;
+                    case 'category':
+                        $dto = new CategoryDTO();
+                        break;
+                    case 'type':
+                        $dto = new TypeDTO();
+                        break;
+                }
             RequestToObject::transform($dto);
             $validator = new DTOValidator($dto);
             if($validator->isValid()) {

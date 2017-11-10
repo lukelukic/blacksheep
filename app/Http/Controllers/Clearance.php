@@ -17,11 +17,10 @@ class Clearance extends Controller
     {
         $repo = Product::getRepository();
         $products = $repo->productsOnSale();
-        $products = ProductToAssoc::convert($products);
+
         return view('clearance', [
             'data' => [
-                'products' => $products,
-                'search' => true
+                'products' => $products
             ]
         ]);
     }

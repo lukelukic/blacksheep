@@ -8,19 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model implements Repository
 {
-    public function parentCategory()
-    {
-        return $this->belongsTo("App\Category", "parent_id");
-    }
 
-    public function subCategories()
+    public function brands()
     {
-        return $this->hasMany("App\Category", "parent_id");
-    }
-
-    public function products()
-    {
-        return $this->hasMany("App\Product", 'product_category_id');
+        return $this->belongsToMany("App\Brand", "category_brand");
     }
 
     public static function getRepository()

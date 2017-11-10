@@ -15,13 +15,12 @@ class Home extends Controller
      */
     public function index(Request $request)
     {
+        session()->forget("orderItems");
         $repo = Product::getRepository();
-        $latest = ProductToAssoc::convert($repo->latestProducts());
-        $special = ProductToAssoc::convert($repo->specialProducts());
+        $latest = $repo->findAll();
         return view('index', [
             'data' => [
-                'latestProducts' => $latest,
-                'specialProducts' => $special
+                'products' => $latest
             ]
         ]);
     }
