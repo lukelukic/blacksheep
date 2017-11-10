@@ -48,6 +48,42 @@
                   <span class="nav-link-text">Proizvodi</span>
                   </a>
                </li>
+               <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
+                  <a class="nav-link" href="/colors">
+                  <i class="fa fa-check"></i>
+                  <span class="nav-link-text">Boje</span>
+                  </a>
+               </li>
+               <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
+                  <a class="nav-link" href="/orders">
+                  <i class="fa fa-reorder"></i>
+                  <span class="nav-link-text">Porudzbine</span>
+                  </a>
+               </li>
+               <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
+                  <a class="nav-link" href="/custom-case">
+                  <i class="fa fa-suitcase"></i>
+                  <span class="nav-link-text">Custom Case</span>
+                  </a>
+               </li>
+               <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
+                  <a class="nav-link" href="/slider">
+                  <i class="fa fa-image"></i>
+                  <span class="nav-link-text">Slajder</span>
+                  </a>
+               </li>
+               <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
+                  <a class="nav-link" href="/delivery">
+                  <i class="fa fa-car"></i>
+                  <span class="nav-link-text">Dostava</span>
+                  </a>
+               </li>
+               <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
+                  <a class="nav-link" href="/special">
+                  <i class="fa fa-smile-o"></i>
+                  <span class="nav-link-text">Akcija</span>
+                  </a>
+               </li>
                <!-- <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
                   <a class="nav-link" href="#">
                   <i class="fa fa-fw fa-link"></i>

@@ -113,7 +113,6 @@
               }
             },
             edit: function(x) {
-
                 izmenaPodataka.id = formData.id;
                 izmenaPodataka.name = formData.name;
                 console.log(izmenaPodataka);
@@ -133,6 +132,7 @@
                 console.log('dohvaceno opet');
             },
             newOne: function() {
+                this.resetHolders();
                 console.log(this.forma.name);
                 $("#cat").html("");
                 this.errors = [];

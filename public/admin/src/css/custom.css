@@ -30,6 +30,13 @@ label:hover{
   margin-right: 10px;
   border:1px solid #ccc
 }
-.label-for-check + input[name=chooseColor]:checked{
-  border:10px solid red;
+.check-with-label:checked + .label-for-check{
+  width:200px!important
+}
+.centered{
+  text-align: center;
+}
+#color{
+height:50px;
+width:100%
 }
