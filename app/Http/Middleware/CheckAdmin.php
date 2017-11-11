@@ -19,9 +19,6 @@ class CheckAdmin
 //        {
 //            return redirect(route("home"));
 //        }
-        if($request->isMethod("options")) return response(null, 200);
-        return $next($request)
-            ->header('Access-Control-Allow-Origin', '*')
-            ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+        return $next($request);
     }
 }
