@@ -1,11 +1,12 @@
 <template>
   <div>
+    <div class='col-md-12 title'>Admin - Brendovi</div>
     <div class='col-md-12'>
       <table>
         <tr>
           <td><input type='text' v-model='forma.name' class='form-control' placeholder='Novi brend'/></td>
           <td v-if='forma.isInsert'><button type='button' @click='newOne' class='btn btn-success'>Dodaj</button></td>
-          <td v-else><button type='button' @click='edit' class='btn btn-success'>Izmeni</button>&nbsp;<button @click='forma.isInsert=true, forma.name=""' class='btn btn-info'><i class='fa fa-plus'></i></button></td>
+          <td v-else><button type='button' @click='edit' class='btn btn-success'>Izmeni</button>&nbsp;<button @click='switchToInsert' class='btn btn-info'><i class='fa fa-plus'></i></button></td>
         </tr>
         <tr>
           <td colspan='2' v-if='errors' v-for='error in errors' class='panel panel-danger'>{{error}}<br/></td>
@@ -34,8 +35,8 @@
          <tbody>
            <tr v-for='p in podaci.brand'>
              <td>{{p.name}}</td>
-             <td><button type='button' @click='preEdit(p.id)'><i class='fa fa-edit'></i></button></td>
-             <td><button type='button' @click='preRemove(p.id)'><i class='fa fa-remove'></i></button></td>
+             <td><button type='button' class='btn btn-warning' @click='preEdit(p.id)'><i class='fa fa-edit'></i></button></td>
+             <td><button type='button' class='btn btn-danger' @click='preRemove(p.id)'><i class='fa fa-remove'></i></button></td>
            </tr>
          </tbody>
        </table>
@@ -69,9 +70,14 @@
               $("#err").html("");
               $("#cat").html("");
             },
+            switchToInsert(){
+              this.formReset();
+              this.resetHolders();
+              this.forma.isInsert = true;
+            },
             dohvati: function() {
                 $.ajax({
-                    url: 'http://localhost/blacksheep/public/index.php/admin/categories',
+                    url: window.base_url+'/categories',
                     type: 'GET',
                     dataType: "json",
                     success: function(data) {
@@ -87,7 +93,7 @@
                 brisanjePodataka.id = x;
                 console.log(this.brisanje);
                 $.ajax({
-                    url: 'http://localhost/blacksheep/public/index.php/admin/categories',
+                    url: window.base_url+'/categories',
                     type: 'DELETE',
                     dataType: "json",
                     data: this.brisanje,
@@ -119,7 +125,7 @@
                 izmenaPodataka.name = formData.name;
                 console.log(izmenaPodataka);
                 $.ajax({
-                    url: 'http://localhost/blacksheep/public/index.php/admin/categories',
+                    url: window.base_url+'/categories',
                     type: 'PATCH',
                     dataType: "json",
                     data: this.izmenaPodataka,
@@ -142,7 +148,7 @@
                 if (!reName.test(this.forma.name)) this.errors.push("Ime brenda nije u dobrom formatu!");
                 else{
                   $.ajax({
-                      url: 'http://localhost/blacksheep/public/index.php/admin/categories',
+                      url: window.base_url+'/categories',
                       type: 'POST',
                       dataType: "json",
                       data: {

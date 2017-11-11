@@ -40,3 +40,14 @@ label:hover{
 height:50px;
 width:100%
 }
+.title{
+  font-size:22px;
+  font-weight: bold;
+  padding:10px 0px 10px 10px;
+  color:rgba(215,6,43,1)
+}
+.p20{
+  border:1px solid green;
+  margin-left:2px;
+  width:100%
+}

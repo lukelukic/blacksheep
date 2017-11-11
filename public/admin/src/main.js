@@ -20,11 +20,15 @@ import './vendor/bootstrap/js/jquery.easing.min.js'
 import './vendor/chart.js/Chart.min.js'
 import './vendor/datatables/jquery.dataTables.js'
 import './js/sb-admin.min.js'
+import './js/config.js'
+import '../node_modules/vue-wysiwyg/dist/vueWysiwyg.css';
 import VuePaginate from 'vue-paginate'
-import wysiwyg from "vue-wysiwyg";
-Vue.use(wysiwyg, {});
+import wysiwyg from "vue-wysiwyg"
+Vue.use(wysiwyg, {
+  hideModules: { "image":true, "table":true, "removeFormat":true }
+});
 Vue.use(VuePaginate)
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
 
 const routes = [
@@ -42,18 +46,20 @@ const routes = [
 
 ];
 
+
 const router = new VueRouter({
   routes,
   mode: 'history'
 })
-
+window.base_url = 'http://localhost/blacksheep/public/index.php/admin';
 
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
+
 new Vue({
   el: '#app',
   router,
   template: '<App/>',
-  components: { App }
+  components: { App },
 })

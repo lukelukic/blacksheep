@@ -1,5 +1,6 @@
 <template>
   <div>
+        <div class='col-md-12 title'>Admin - Boje</div>
   <div class='col-md-6'>
     <table class='table table-striped'><tbody>
     <tr ><th>Boja</th><th>Izmeni</th><th>Izbrisi</th></tr>
@@ -38,7 +39,7 @@ methods: {
   dohvati : function(){
     var self = this;
     $.ajax({
-      url: 'http://localhost/blacksheep/public/index.php/admin/colors',
+      url: window.base_url+'/colors',
       type: 'GET',
       dataType: "json",
       success: function(data) {
@@ -67,7 +68,7 @@ methods: {
 
           }
           $.ajax({
-              url: 'http://localhost/blacksheep/public/index.php/admin/colors',
+              url: window.base_url+'/colors',
               type: type,
               data: data,
               success: function(data) {
@@ -86,7 +87,7 @@ methods: {
     $('#feedback').html("").addClass('nev');
     $('#success').html("").addClass('nev');
       $.ajax({
-          url: 'http://localhost/blacksheep/public/index.php/admin/colors',
+          url: window.base_url+'/colors',
           type: 'DELETE',
           data: id,
           success: function(data) {
