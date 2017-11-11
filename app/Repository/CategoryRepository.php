@@ -24,4 +24,8 @@ class CategoryRepository extends AbstractRepository
         return $this->model->where('name','=',$categoryName)->get()[0];
     }
 
+    public function allWithBrands()
+    {
+        return $this->model->with("brands")->get();
+    }
 }

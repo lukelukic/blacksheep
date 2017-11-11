@@ -29,7 +29,7 @@ class CategoryController extends Controller
     public function index()
     {
         return [
-            'categories' => Category::getRepository()->findAll(),
+            'categories' => Category::getRepository()->allWithBrands(),
             'brands' => Brand::getRepository()->findAll(),
             'types' => Type::getRepository()->findAll()
         ];

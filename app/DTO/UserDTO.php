@@ -26,6 +26,22 @@ class UserDTO extends ObjectDTO
     public $phone;
     public $city;
     public $postNumber;
+    public $token;
+
+    public function __construct()
+    {
+        $this->token = $this->generateRandomString();
+    }
+
+    private function generateRandomString($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
 
     public function getModelClass()
     {
@@ -46,7 +62,8 @@ class UserDTO extends ObjectDTO
             'address' => 'required|max:70',
             'phone' => 'required|min:11|max:12',
             'city' => 'required|min:2',
-            'postNumber' => 'required|numeric|min:5'
+            'postNumber' => 'required|numeric|min:5',
+            'token' => 'required'
         ];
     }
 
