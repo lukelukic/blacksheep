@@ -1,9 +1,9 @@
 <div class="row">
     <div class="col-md-12 col-sm-12">
-        <ul class="pagination pull-right">
-            <li id="paginationStart"><a href="#">&laquo;</a></li>
+        <ul class="pagination pull-right" id="pagination">
+            <li id="paginationStart"><a onclick="showPage(1)" href="#position">&laquo;</a></li>
 
-            <li><a href="#">&raquo;</a></li>
+
         </ul>
     </div>
 </div>
@@ -22,9 +22,11 @@
         var pages = (itemsCount%12) == 0 ? itemsCount/12 : parseInt(itemsCount/12 + 1);
 
         for(let i = pages; i > 0; i--) {
-            let paginationItem = '<li><a onclick=showPage(' + i + ')>' + i + '</a></li>';
+            let paginationItem = '<li><a href="#position" onclick=showPage(' + i + ')>' + i + '</a></li>';
             $("#paginationStart").after(paginationItem);
         }
+
+        $("#pagination").append('<li><a id="paginationEnd" onclick="showPage(' + pages + ')" href="#position">&raquo;</a></li>')
     });
 
     function showPage(page) {

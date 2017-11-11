@@ -2,7 +2,6 @@
 @section('content')
     <div class="main">
         <div class="container">
-            <!-- BEGIN SIDEBAR -->
         @component('components.sidebar', $data)@endcomponent
         <!-- <input type="submit" value="Submit"> -->
             <!-- BEGIN CONTENT -->
@@ -12,7 +11,7 @@
                         <a href="javascript:;"><i class="fa fa-th-large"></i></a>
                         <a href="javascript:;"><i class="fa fa-th-list"></i></a>
                     </div>
-                    <div class="col-md-10 col-sm-10">
+                    <div class="col-md-10 col-sm-10" id="position">
                         @component('components.show_and_sort')@endcomponent
                         @component('components.search_category')@endcomponent
                     </div>
