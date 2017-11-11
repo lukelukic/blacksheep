@@ -45,7 +45,7 @@ class CustomCase extends Controller
 
                 $this->addToCart($picture);
                
-               return redirect()->back()->with("success", "Porudzbina uspesno dodata! Kontaktiracemo vas u najkracem mogucem roku.");
+               return redirect()->back()->with("success", "Proizvod uspešno dodat u korpu.");
            }
         }
     }

@@ -13,6 +13,8 @@ use App\Services\RequestToObject;
 use App\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Mockery\CountValidator\Exception;
 
 class Checkout extends Controller
@@ -33,41 +35,49 @@ class Checkout extends Controller
     {
         $dto = new UserDTO();
         RequestToObject::transform($dto);
-        //Ako je postojeci korisnik, vrsi se update na osnovu prosledjenih podataka
-        if($request->has('userId')) {
-            $repo = User::getRepository();
-            $user = $repo->findById($request->get("userId"));
-            try {
+        $status = true;
+        try {
+            $order = null;
+            if($request->has('userId')) {
+                $repo = User::getRepository();
+                $user = $repo->findById($request->get("userId"));
                 $updated = ModelManager::updateInstance($user, $dto);
-                $this->browseOrderItems($user);
-            } catch (QueryException $e) {
-                return $e->getMessage();
-            }
-            if($updated) {
-                $this->browseOrderItems($user);
-                session()->forget('orderItems');
-                return ['status' => true];
-            }
-        } else {
-            //Slucaj kada se registruje novi korisnik
-            try {
+                if($updated) {
+                   $order = $this->browseOrderItems($user);
+                }
+            } else {
+                //Slucaj kada se registruje novi korisnik
                 $user = ModelManager::saveInstance(User::class, $dto);
-                $this->browseOrderItems($user);
-            } catch(QueryException $e) {
-                return $e->getMessage();
+                $order = $this->browseOrderItems($user);
             }
 
+            //Slanje mail-a
+            $items = session()->get("orderItems");
+            Mail::send('emails.order',
+                [ 'items' => $items,
+                    'user' => $user,
+                    'orderId' => $order ? $order->id : ""
+                ],
+                function($message) use ($user) {
+                    $message->from("lukeelukic@gmail.com", 'Blacksheep Online Shop');
+                    $message->to($user->email);
+                    $message->subject("Porudžbina");
+                });
             session()->forget('orderItems');
-            return ['status' => true];
+        } catch(\Exception $e) {
+            $status = false;
+            Log::error($e->getMessage());
         }
+        return ['status' => $status];
     }
 
     private function browseOrderItems(User $user)
     {
-        try {
+
             $status = OrderStatus::find(1);
             $hasProducts = false;
             $hasCustom = false;
+
             foreach(session()->get('orderItems') as $item) {
                 if($item['type'] == 'product') {
                     $hasProducts = true;
@@ -89,12 +99,14 @@ class Checkout extends Controller
                 $order->save();
                 foreach(session()->get('orderItems') as $item)
                 {
+
                     if($item['type'] == 'product') {
                         $order->products()->attach($item['item']->id, [
                             'amount' => $item['amount']
                         ]);
                     }
                 }
+                return $order;
             }
 
             if($hasCustom) {
@@ -107,12 +119,13 @@ class Checkout extends Controller
                         $customCase->order_status_id = 1;
                         $customCase->amount = $item['amount'];
                         $customCase->save();
+                        return $customCase;
                     }
                 }
+
             }
-        } catch(\Exception $e) {
-            return ($e->getMessage());
-        }
+        return null;
+
     }
 
 

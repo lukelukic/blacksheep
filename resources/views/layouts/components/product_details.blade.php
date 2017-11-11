@@ -8,13 +8,15 @@
     <h2 id="productName"></h2>
     <div class="price-availability-block clearfix">
         <div class="price">
-            <strong id="offerPrice"><span>RSD</span></strong>
-            <em><span id="actualPrice"></span>RSD</em>
+            <strong id="offerPrice">Cena: <span></span></strong>
+            <em><span id="actualPrice"></span></em>
         </div>
     </div>
     <div class="description">
+        <p class="lead">Opis proizvoda:</p>
         <p id="productDescription"></p>
     </div>
+    <br>
     <form action="{{ url("/order/add") }}" method="post">
     <div class="product-page-options hidden" id="hasColor">
         <div class="pull-left">
@@ -39,7 +41,6 @@
         $.ajax({
             url : "http://localhost/blacksheep/public/index.php/products/product/" + id,
             success : function(data) {
-                console.log(data);
                 showProductDetails(data[0]);
             },
             error : function(xhr, status, error) {
@@ -53,8 +54,30 @@
         picture.src = "http://localhost/blacksheep/public/assets/pages/img/products/" + product.picture.file;
         picture.alt = product.picture.alt;
 
-        $("#offerPrice").html(product.prices[1].price);
-        $("#actualPrice").html(product.prices[0].price);
+        console.log(product);
+        if(product.is_offer) {
+            for(let i = 0; i < product.prices.length; i++) {
+                if(product.prices[i].is_offer) {
+                    $("#offerPrice").html(product.prices[i].price + " RSD");
+                    break;
+                }
+            }
+
+            for(let i = 0; i < product.prices.length; i++) {
+                if(!product.prices[i].is_offer) {
+                    $("#actualPrice").html(product.prices[i].price + " RSD");
+                    break;
+                }
+            }
+        } else {
+            for(let i = 0; i < product.prices.length; i++) {
+                if(!product.prices[i].is_offer) {
+                    $("#offerPrice").html(product.prices[i].price + " RSD");
+                    $("#actualPrice").html("");
+                    break;
+                }
+            }
+        }
         $("#productName").html(product.name);
         $("#productDescription").html(product.description);
 

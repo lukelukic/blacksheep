@@ -87,3 +87,7 @@ Route::get("/token", function(Request $request) {
 });
 Route::post("/checkout/buy", "Checkout@buy");
 
+
+Route::get("email", function(){
+    session()->forget('orderItems');
+});
