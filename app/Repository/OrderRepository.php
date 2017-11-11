@@ -22,10 +22,11 @@ class OrderRepository extends AbstractRepository
     {
         return $this->model->with(
             [
+                'user',
                 'products.picture',
                 'products.prices' => function($query) {
                     $query->orderBy('created_at', 'desc')->first();
                 },
-            ])->where('status_id', 1)->get();
+            ])->get();
     }
 }

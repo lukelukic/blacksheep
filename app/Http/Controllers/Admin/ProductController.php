@@ -26,7 +26,10 @@ class ProductController extends Controller
 
 
 
-
+    public function store(Request $request)
+    {
+        
+    }
 
     /**
      * Update the specified resource in storage.
