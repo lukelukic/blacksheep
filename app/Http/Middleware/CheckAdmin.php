@@ -19,6 +19,9 @@ class CheckAdmin
 //        {
 //            return redirect(route("home"));
 //        }
+        if($request->isMethod("options")) {
+            return response("DATA", 200);
+        }
         return $next($request);
     }
 }
