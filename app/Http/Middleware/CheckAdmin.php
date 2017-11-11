@@ -19,7 +19,7 @@ class CheckAdmin
 //        {
 //            return redirect(route("home"));
 //        }
-        if($request->method("options")) return [1];
+        if($request->isMethod("options")) return [1];
         return $next($request)
             ->header('Access-Control-Allow-Origin', '*')
             ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
