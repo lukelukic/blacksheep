@@ -32,7 +32,6 @@
     <link href="{{ asset('assets/corporate/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/corporate/css/style-responsive.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/corporate/css/themes/red.css') }}" rel="stylesheet" id="style-color">
-    <link href="{{ asset('assets/corporate/css/custom.css') }}" rel="stylesheet">
     <script src="{{ asset('assets/plugins/jquery.min.js') }}" type="text/javascript"></script>
 </head>
 <body class="ecommerce">

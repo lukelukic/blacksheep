@@ -23,7 +23,13 @@ class ProductRepository extends AbstractRepository
 
     public function findById($id)
     {
-        return $this->model->with('picture','prices', 'colors')->find($id);
+        return $this->model->with([
+            'picture',
+            'prices' => function($query) {
+                        $query->orderBy('created_at', 'desc');
+            },
+            'colors'
+        ])->find($id);
     }
 
     public function findAll()
