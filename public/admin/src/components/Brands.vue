@@ -134,6 +134,7 @@
                 console.log('dohvaceno opet');
             },
             newOne: function() {
+                this.resetHolders();
                 console.log(this.forma.name);
                 $("#cat").html("");
                 this.errors = [];

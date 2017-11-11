@@ -21,10 +21,10 @@ class ColorDTO extends ObjectDTO
     public function getMessages()
     {
         return [
-            'hex.required' => "Boja nije odabrana.",
-            'hex.hexcolor' => "Boja mora biti u heksadecimalnom formatu.",
-            'hex.unique' => "Odabrana boja vec postoji."
-        ];
+        'hex.required' => "Boja nije odabrana.",
+        'hex.hexcolor' => "Boja mora biti u heksadecimalnom formatu.",
+        'hex.unique' => "Odabrana boja vec postoji."
+    ];
     }
 
     public function getRules()
