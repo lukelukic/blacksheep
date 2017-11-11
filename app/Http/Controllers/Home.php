@@ -15,9 +15,8 @@ class Home extends Controller
      */
     public function index(Request $request)
     {
-        session()->forget("orderItems");
         $repo = Product::getRepository();
-        $latest = $repo->findAll();
+        $latest = $repo->latestProducts();
         return view('index', [
             'data' => [
                 'products' => $latest

@@ -17,11 +17,9 @@
                         @component('components.search_category')@endcomponent
                     </div>
                 </div>
-                    <div id="products">
+                    <div id="products" class="row">
                         @foreach($data['products'] as $product)
-                            <div class="col-md-3">
-                                @component('components.product', ["product" => $product])@endcomponent
-                            </div>
+                                @component('components.product', ["product" => $product, "col" => "col-md-3"])@endcomponent
                         @endforeach
                     </div>
                 </div>

@@ -11,8 +11,10 @@
     </div>
 <script>
     $("#sort").change(function(event) {
-        var products = $(".product-item");
-        var sorted = [];
+        var tmp = $(".product-item");
+        var products = tmp.filter(function(n,i) {
+            return !$(i).parent().hasClass("hidden");
+        });
 
         switch(parseInt(event.target.value)) {
             case 1:
@@ -26,7 +28,6 @@
                     });
                     for(let i=0; i < products.length; i++) {
                         let productDiv = document.createElement("div");
-                        $(productDiv).addClass("col-md-3");
                         $(productDiv).append(products[i]);
                         $("#products").append(productDiv);
                     }
@@ -42,7 +43,6 @@
                 });
                 for(let i=0; i < products.length; i++) {
                     let productDiv = document.createElement("div");
-                    $(productDiv).addClass("col-md-3");
                     $(productDiv).append(products[i]);
                     $("#products").append(productDiv);
                 }
@@ -58,7 +58,6 @@
                 });
                 for(let i=0; i < products.length; i++) {
                     let productDiv = document.createElement("div");
-                    $(productDiv).addClass("col-md-3");
                     $(productDiv).append(products[i]);
                     $("#products").append(productDiv);
                 }
@@ -74,7 +73,6 @@
                 });
                 for(let i=0; i < products.length; i++) {
                     let productDiv = document.createElement("div");
-                    $(productDiv).addClass("col-md-3");
                     $(productDiv).append(products[i]);
                     $("#products").append(productDiv);
                 }
@@ -90,7 +88,6 @@
                 });
                 for(let i=0; i < products.length; i++) {
                     let productDiv = document.createElement("div");
-                    $(productDiv).addClass("col-md-3");
                     $(productDiv).append(products[i]);
                     $("#products").append(productDiv);
                 }
@@ -107,7 +104,6 @@
                 });
                 for(let i=0; i < products.length; i++) {
                     let productDiv = document.createElement("div");
-                    $(productDiv).addClass("col-md-3");
                     $(productDiv).append(products[i]);
                     $("#products").append(productDiv);
                 }

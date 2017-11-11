@@ -47,7 +47,8 @@ class Cart extends Controller
             session(['orderItems' => [
                 [
                     'item' => $product,
-                    'amount' => 1
+                    'amount' => 1,
+                    'type' => 'product'
                 ]
             ]]);
         } else {
@@ -64,7 +65,8 @@ class Cart extends Controller
                 session()->push('orderItems',
                     [
                         'item' => $product,
-                        'amount' => 1
+                        'amount' => 1,
+                        'type' => "product"
                     ]);
             }
         }
@@ -83,7 +85,8 @@ class Cart extends Controller
                 [
                     'item' => $product,
                     'amount' => $amount,
-                    'color_id' => $colorId
+                    'color_id' => $colorId,
+                    'type' => "product"
                 ]
             ]]);
         } else {
@@ -101,12 +104,14 @@ class Cart extends Controller
                     [
                         'item' => $product,
                         'amount' => $amount,
-                        'color_id' => $colorId
+                        'color_id' => $colorId,
+                        'type' => "product"
                     ]);
             }
         }
         return redirect()->back();
     }
+
 
     public function remove($id)
     {

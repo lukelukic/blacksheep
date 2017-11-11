@@ -13,9 +13,9 @@
             for(let i=0; i < products.length; i++) {
                 let productName = $(products[i]).find("#productName").html().toLowerCase();
                 if(productName.indexOf(keyword) !== -1) {
-                    $(products[i]).parent().show();
+                    $(products[i]).show();
                 } else {
-                    $(products[i]).parent().hide();
+                    $(products[i]).hide();
                 }
             }
         });

@@ -41,19 +41,61 @@ class CustomCase extends Controller
                $picture->alt = "custom case";
                $picture->file = $fileName;
                $picture->save();
-               $request->file('file')->move(base_path("/public/assets/pages/img/custom_case"), $fileName);
+               $request->file('file')->move(base_path("/public/assets/pages/img/products/"), $fileName);
 
-               $user = User::getRepository()->findById(1);
-               $order_status = OrderStatus::find(1);
-
-               $custom_case = new \App\CustomCase();
-               $custom_case->user()->associate($user);
-               $custom_case->order_status_id = $order_status->id;
-               $custom_case->picture_id = $picture->id;
-               $custom_case->save();
+                $this->addToCart($picture);
                
                return redirect()->back()->with("success", "Porudzbina uspesno dodata! Kontaktiracemo vas u najkracem mogucem roku.");
            }
         }
+    }
+
+    private function addToCart(Picture $picture)
+    {
+        $item = new \stdClass();
+        $item->name = "Custom case maska";
+        $id = 1;
+        if(session()->has('orderItems')) {
+            foreach(session()->get("orderItems") as $orderItem) {
+                if($orderItem['type'] == 'custom') $id++;
+            }
+        }
+
+        $item->id = "custom" . $id;
+        $item->picture = $picture;
+        $price = new \stdClass();
+        $price->price = 300;
+        $item->prices = [$price];
+        $item->description = "Maska na osnovu slike unete u formi.";
+        if(!session('orderItems')) {
+            session(['orderItems' => [
+                [
+                    'item' => $item,
+                    'amount' => 1,
+                    'type' => "custom"
+                ]
+            ]]);
+        } else {
+                session()->push('orderItems',
+                    [
+                        'item' => $item,
+                        'amount' => 1,
+                        'type' => "product"
+                    ]);
+        }
+
+    }
+
+    //Verovatno se obradjuje na drugom mestu, da se sacuva kod ovde
+    private function checkout(Picture $picture)
+    {
+        $user = User::getRepository()->findById(1);
+        $order_status = OrderStatus::find(1);
+
+        $custom_case = new \App\CustomCase();
+        $custom_case->user()->associate($user);
+        $custom_case->order_status_id = $order_status->id;
+        $custom_case->picture_id = $picture->id;
+        $custom_case->save();
     }
 }

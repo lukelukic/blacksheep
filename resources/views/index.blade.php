@@ -10,7 +10,7 @@
                     <h2>Najnoviji proizvodi</h2>
                     <div class="owl-carousel owl-carousel5">
                         @foreach($data['products'] as $product)
-                                @component('components.product', ["product" => $product])@endcomponent
+                                @component('components.product', ["product" => $product, "col" => ""])@endcomponent
                         @endforeach
                     </div>
                 </div>

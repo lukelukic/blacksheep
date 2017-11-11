@@ -1,4 +1,4 @@
-                <div class="product-item">
+                <div class="product-item {{ $col }}">
                     <div class="pi-img-wrapper">
                         <img src="{{ asset('assets/pages/img/products/' . $product->picture->file) }}" class="img-responsive" alt="{{ $product->picture->alt }}">
                         <div>
@@ -19,7 +19,7 @@
                         <div class="sticker sticker-new"></div>
                     @endif
 
-                    <input type="hidden" name="productBrand" value="{{ $product->brand->id }}">
+                    <input type="hidden" id="productBrand" value="{{ $product->brand->id }}">
                 </div>
 
 
