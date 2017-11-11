@@ -1,5 +1,6 @@
-products<template lang="html">
+<template lang="html">
   <div>
+        <div class='col-md-12 title'>Admin - Porudžbine</div>
   <div class='container'>
     <div class='col-md-2' style='font-size:15px; padding-top:5px'>Filter:</div>
     <div class='col-md-5' style='margin-bottom:15px'><select class=' form-control' v-model='orderPodaci.filter' v-on:change='reset'><option v-bind:value='1'>Neobradjene</option><option v-bind:value='2'>Poslate</option><option v-bind:value='3'>Odbijene</option></select></div>
@@ -65,7 +66,15 @@ products<template lang="html">
           <td v-if='orderPodaci.clicked'>{{orderPodaci.tel}}</td>
           </tr>
           <tr>
-          <td colspan='8' v-if='orderPodaci.filter == 1'><button class='btn btn-success' v-if='orderPodaci.cancel.length==0' @click='posalji(2)'>Posalji</button><button v-if='orderPodaci.cancel.length>0' class='btn btn-danger' @click='posalji(3)'>Otkazi</button>&nbsp;<button v-if='orderPodaci.cancel.length>0' class='btn btn-info' @click='posalji(4)'>Potvrdi sa izmenama</button><button class='btn btn-danger' v-if='orderPodaci.cancel.length==0' @click='obrisi'>Obrisi</button></td>
+          <td>Grad</td>
+          <td v-if='orderPodaci.clicked'>{{orderPodaci.city}}</td>
+          </tr>
+          <tr>
+          <td>Poštanski broj</td>
+          <td v-if='orderPodaci.clicked'>{{orderPodaci.zipcode}}</td>
+          </tr>
+          <tr>
+          <td colspan='8' v-if='orderPodaci.filter == 1'><button class='btn btn-success' v-if='orderPodaci.cancel.length==0' @click='posalji(2)'>Posalji</button><button v-if='orderPodaci.cancel.length>0' class='btn btn-danger' @click='posalji(3)'>Otkazi</button>&nbsp;<button v-if='orderPodaci.cancel.length>0' class='btn btn-info' @click='posalji(2)'>Potvrdi sa izmenama</button><button class='btn btn-danger' v-if='orderPodaci.cancel.length==0' @click='obrisi'>Obrisi</button></td>
           </tr>
           </tbody></table>
           </div>
@@ -80,6 +89,7 @@ products<template lang="html">
     // import '../js/ajax.js'
     export default {
         data: function() {
+            console.log(window.poklon);
             return {
                 orderBazaPodaci: orderDbData,
                 orderPodaci: orderData
@@ -98,7 +108,9 @@ products<template lang="html">
                     price: this.orderPodaci.price,
                     created_at: this.orderPodaci.created_at,
                     address: this.orderPodaci.address,
-                    tel: this.orderPodaci.tel
+                    tel: this.orderPodaci.tel,
+                    city: this.orderPodaci.city,
+                    zipcode: this.orderPodaci.zipcode
                 }
                 console.log(data);
                 switch (i) {
@@ -108,16 +120,13 @@ products<template lang="html">
                     case 3:
                         var status_id = 3;
                         break;
-                    case 4:
-                        var status_id = 4;
-                        break;
                     default:
                 }
                 $.ajax({
-                    url: 'http://localhost/blacksheep/public/index.php/admin/orders',
+                    url: window.base_url+'/orders',
                     type: 'POST',
                     dataType: "json",
-                    data: data,
+                    data: data, //saljem ti jebene statuse, 2-poslata kako god, 3-obijena, 0-prakticno nemoguce jelte
                     success: function(data) {
                         $('#feedback').html('Uspešno izvršeno!');
                         console.log(data);
@@ -131,7 +140,7 @@ products<template lang="html">
                 var id = this.orderPodaci.id;
                 this.resetHolders();
                 $.ajax({
-                    url: 'http://localhost/blacksheep/public/index.php/admin/orders',
+                    url: window.base_url+'/orders',
                     type: 'DELETE',
                     dataType: "json",
                     data: id,
@@ -157,6 +166,8 @@ products<template lang="html">
                         this.orderPodaci.created_at = this.orderBazaPodaci[i]['created_at'];
                         this.orderPodaci.address = this.orderBazaPodaci[i]['address'];
                         this.orderPodaci.tel = this.orderBazaPodaci[i]['tel'];
+                        this.orderPodaci.city = this.orderBazaPodaci[i]['tel'];
+                        this.orderPodaci.zipcode = this.orderBazaPodaci[i]['tel'];
                     }
                 }
             },
@@ -174,7 +185,7 @@ products<template lang="html">
             dohvati : function(){
               var self = this;
               $.ajax({
-                url: 'http://localhost/blacksheep/public/index.php/admin/orders',
+                url: window.base_url+'/orders',
                 type:'GET',
                 dataType: 'json',
                 success: function(data){
@@ -213,6 +224,8 @@ products<template lang="html">
         created_at: new Date().toLocaleDateString(),
         address: "Adresa",
         tel: "064 555 333",
+        city: "Beograd",
+        zipcode: "11000",
         status_id: '0',
         fullname: "Nex Lukic",
         filter: '1',
@@ -259,6 +272,8 @@ products<template lang="html">
         status_id: 1,
         created_at: new Date().toLocaleDateString(),
         tel: "064 15 13 10",
+        city: "Beograd",
+        zipcode: "11000",
         address: "Adresa",
         fullname: "Bora Corba"
     }];

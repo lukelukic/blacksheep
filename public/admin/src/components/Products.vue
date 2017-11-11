@@ -1,19 +1,24 @@
 <template>
   <div>
+        <div class='col-md-12 title'>Admin - Proizvodi</div>
   <div class='col-md-6'>
+    <div class='form-group col-md-6'><select v-model='forma.filterCategory' class='form-control'><option value=''>Izaberite kategoriju...</option><option v-for='cat in forma.categories' :value='cat.id'>{{ cat.name }}</option></select></div>
+    <div class='form-group col-md-5'><input type='text' class='form-control' v-model='forma.searchQuery'/></div><div class='col-md-1'><button @click='searchForItem(forma.searchQuery)' class='btn btn-primary btn-xs'><i class='fa fa-search fa-2x'></i></button></div>
     <table class='table table-hover table-condensed'>
       <thead>
+        <tr v-if='forma.filterCategory'>
         <th>Naziv</th>
         <!-- <th>Slika</th> -->
         <th>Izmeni</th>
         <th>Obrisi</th>
+      </tr>
       </thead>
       <tbody>
-        <tr v-for='p in podaci.products'>
+        <tr v-for='p in podaci.products'> <!-- v-if='p.category_id == forma.filterCategory' 2badded-->
           <td>{{p.name}}</td>
           <!-- <td v-for='slika in p'><img :src='slika.file' width='50' :alt='slika.alt'/></td> -->
-          <td><button type='button' @click='preEdit(p.id)'><i class='fa fa-edit'></i></button></td>
-          <td><button type='button' @click='preRemove(p.id)'><i class='fa fa-remove'></i></button></td>
+          <td><button type='button' class='btn btn-warning' @click='preEdit(p.id)'><i class='fa fa-edit'></i></button></td>
+          <td><button type='button' class='btn btn-danger' @click='preRemove(p.id)'><i class='fa fa-remove'></i></button></td>
         </tr>
       </tbody>
     </table>
@@ -69,7 +74,7 @@
       </tr>
       <tr>
         <td align='center' colspan='2' v-if='forma.isInsert'><button type='button' @click='unesi' class='btn btn-success'>Unesi</button></td>
-        <td v-else><button type='button' @click='edit' class='btn btn-success'>Izmeni</button>&nbsp;<button @click='forma.isInsert=true, forma.name="", forma.description="", forma.prices=[], forma.brand_id=0,forma.type_id=0,forma.bojanJe=false' class='btn btn-info'><i class='fa fa-plus'></i></button></td>
+        <td v-else><button type='button' @click='edit' class='btn btn-success'>Izmeni</button>&nbsp;<button @click='switchToInsert' class='btn btn-info'><i class='fa fa-plus'></i></button></td>
       </tr>
       <tr>
         <td colspan='2'><div class='centered' v-for='err in errors' v-if='hasErrors'>{{err}}<br/></div>
@@ -97,9 +102,43 @@
             }
         },
         methods: {
+          searchForItem: function(query) {
+    sviPodaci.products = window.kopija.slice(0);
+    for (var i = 0; i < sviPodaci.products.length; i++) {
+        if (sviPodaci.products[i]['name'].toUpperCase().indexOf(query.toUpperCase()) == -1) {
+          sviPodaci.products.splice(i, 1);
+          --i;
+        }
+    }
+
+},
+switchToInsert: function(){
+  this.forma.name = '';
+  this.forma.description = '';
+  this.forma.prices = [];
+  this.forma.bojanJe = false;
+  this.forma.brand_id = 0;
+  this.forma.type_id = 0;
+  this.forma.isInsert=true;
+  this.errors = []
+},
+          dohvatiKategorije : function(){
+            $.ajax({
+              url: window.base_url+'/categories',
+              type: 'GET',
+              dataType: "json",
+              success: function(data) {
+                console.log(data);
+                  formData.categories = data.categories;
+              },
+              error: function(xhr, status, error) {
+                  $("#feedback").html("Dogodila se greska").removeClass('nev');
+              }
+            });
+          },
           dohvatiBrendTip : function(){
             $.ajax({
-              url: 'http://localhost/blacksheep/public/index.php/admin/categories',
+              url: window.base_url+'/categories',
               type: 'GET',
               dataType: "json",
               success: function(data) {
@@ -113,7 +152,7 @@
           },
           dohvatiBoje : function(){
             $.ajax({
-              url: 'http://localhost/blacksheep/public/index.php/admin/colors',
+              url: window.base_url+'/colors',
               type: 'GET',
               dataType: "json",
               success: function(data) {
@@ -185,7 +224,7 @@
                     console.log(this.unos);
                     // ajax
                     $.ajax({
-                        url: 'http://localhost/blacksheep/public/index.php/admin/products',
+                        url: window.base_url+'/products',
                         type: 'POST',
                         dataType: "json",
                         data: this.unos,
@@ -280,7 +319,7 @@
                   if (this.forma.checked.length > 0) this.unos.checked = this.forma.checked;
                   console.log(this.unos);
                   $.ajax({
-                      url: 'http://localhost/blacksheep/public/index.php/admin/products',
+                      url: window.base_url+'/products',
                       type: 'PATCH',
                       dataType: "json",
                       data: this.unos,
@@ -305,11 +344,12 @@
             }},
             dohvati: function() {
     $.ajax({
-        url: 'http://localhost/blacksheep/public/index.php/admin/products',
+        url: window.base_url+'/products',
         type: 'GET',
         dataType: "json",
         success: function(data) {
             sviPodaci.products = data.products;
+            window.kopija = sviPodaci.products.slice(0);
             console.log(data);
         },
         error: function(xhr, status, error) {
@@ -319,7 +359,7 @@
 },
 preRemove: function(x) {
     $.ajax({
-        url: 'http://localhost/blacksheep/public/index.php/admin/products',
+        url: window.base_url+'/products',
         type: 'DELETE',
         dataType: "json",
         data: x,
@@ -340,9 +380,11 @@ preRemove: function(x) {
             this.dohvati()
             this.dohvatiBoje()
             this.dohvatiBrendTip()
+            this.dohvatiKategorije()
         }
     }
     var sviPodaci = {
+        filterCategory: "",
         products: [{
             id: 1,
             name: 'Product',
@@ -386,6 +428,7 @@ preRemove: function(x) {
         is_offer: 0,
         special: 0,
         brand_id: 0,
+        category_id: 1,
         picture_id: 0,
         type_id: null,
         brand: [{
@@ -433,7 +476,13 @@ preRemove: function(x) {
         }],
         checked: [],
         bojanJe: false,
-        isInsert: true
+        isInsert: true,
+        filterCategory: "",
+        searchQuery: "",
+        categories: [{
+           id : 1,
+           name : 'Maske'
+        }]
     }
     var dodavanjePodataka = {
         name: '',
