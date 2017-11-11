@@ -18,23 +18,14 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::getRepository()->findAll();
+        $products = Product::getRepository()->exportAll();
         return [
             'products' => $products
         ];
     }
 
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        
-    }
+
 
 
     /**
