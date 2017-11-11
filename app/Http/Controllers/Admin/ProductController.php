@@ -68,7 +68,6 @@ class ProductController extends Controller
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             $status = 500;
-            $data = $e->getMessage();
         }
         return response($data, $status);
     }
@@ -82,7 +81,45 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        echo "EDIT";
+        $status = 422;
+        $data = null;
+        try {
+            $dto = new ProductDTO();
+            RequestToObject::transform($dto);
+            $validator = new DTOValidator($dto);
+            if($validator->isValid()) {
+                $product = Product::getRepository()->findById($id);
+                $product->brand_id = $dto->brand_id;
+                $product->name = $dto->name;
+                $product->picture_id = 24;
+                $product->special = $dto->special;
+                $product->is_offer = $dto->is_offer;
+                $product->is_active = $dto->is_active;
+                $product->type_id = $dto->type_id ? $dto->type_id : null;
+                $product->description = $dto->description;
+                $product->save();
+                foreach($dto->colors as $id) {
+                    $color = Color::find($id);
+                    if ($color) {
+                        $product->colors()->sync($color->id);
+                    }
+                }
+                $price = new Price();
+                if($product->is_offer) {
+                    $price->is_offer = true;
+                }
+                $price->price = $dto->price;
+                $price->product_id = $product->id;
+                $price->save();
+                $status = 201;
+            } else {
+                $data = $validator->getErrors();
+            }
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            $status = 500;
+        }
+        return response($data, $status);
     }
 
     /**
