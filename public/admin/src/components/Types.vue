@@ -93,19 +93,28 @@
                 brisanjePodataka.id = x;
                 console.log(this.brisanje);
                 $.ajax({
-                    url: window.base_url+'/categories',
+                    url: window.base_url+'/categories/'+x,
                     type: 'DELETE',
                     dataType: "json",
                     data: {
-                      type : type
+                      type : 'type'
                     },
                     success: function(data) {
 
                     },
                     error: function(xhr, status, error) {
-                        $("#err").html("Dogodila se greska - "+ xhr.status + "<br/> Poslati su [očekivani tip] i [id]: "+brisanjePodataka.id).removeClass('nev');
+                      switch (xhr.status) {
+                        case 200:
+                        $("#err").html("");
+                          break;
+                        default:
+                          $("#err").html("Dogodila se greska - "+ xhr.status + "<br/> Poslati su [očekivani tip] i [id]: "+brisanjePodataka.id).removeClass('nev');
+                          break;
+                      }
+
                     }
                 });
+                this.dohvati()
                 this.dohvati()
                 this.dohvati()
                 this.formReset()
@@ -127,15 +136,19 @@
                 izmenaPodataka.name = formData.name;
                 console.log(izmenaPodataka);
                 $.ajax({
-                    url: window.base_url+'/categories',
+                    url: window.base_url+'/categories/'+formData.id,
                     type: 'PATCH',
                     dataType: "json",
-                    data: this.izmenaPodataka,
+                    data: {
+                      name : formData.name,
+                      type : formData.type
+                    },
                     success: function(data) {},
                     error: function(xhr, status, error) {
                                             $("#err").html("Dogodila se greska - "+ xhr.status + "<br/> Poslati su: [očekivani tip], [id]: "+izmenaPodataka.id+" i [name]: "+izmenaPodataka.name).removeClass('nev');
                     }
                 });
+                this.dohvati()
                 this.dohvati()
                 this.dohvati()
                 this.formReset()
@@ -176,6 +189,7 @@
                   });
                   this.dohvati()
                   this.dohvati()
+                  this.dohvati()
                   this.formReset()
                 }
 
@@ -206,7 +220,7 @@
         }]
     }
     var formData = {
-      type : 'types',
+      type : 'type',
       name : '',
       id : '',
       isInsert : true

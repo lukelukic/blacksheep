@@ -13,9 +13,8 @@
         <tr>
           <td>
             <ul style='list-style-type:none; overflow:scroll; height:150px' class='form-control'>
-          <li v-for='c in forma.brands'>{{c.name}}<input type='checkbox' v-model='c.checked' :value='c.id' :id='c.id' class='form-control chbWidth'/></li>
+          <li v-for='c in forma.brands'>{{c.name}}<input type='checkbox' v-model='forma.checked' :value='c.id' :id='c.id' class='form-control chbWidth'/></li>
           </ul>
-          {{forma.checked}}
         </td>
         </tr>
         <tr>
@@ -149,16 +148,20 @@
                 });
                 this.dohvati()
                 this.dohvati()
+                this.dohvati()
                 this.formReset()
-                console.log('dohvaceno opet');
             },
             preEdit : function(x){
               this.resetHolders();
+              formData.checked = [];
               formData.isInsert = false;
               for(var i=0;i<sviPodaci.category.length;i++){
                 if(sviPodaci.category[i]['id']==x){
                   formData.name = sviPodaci.category[i]['name'];
                   formData.id = sviPodaci.category[i]['id'];
+                  for(var j = 0; j<sviPodaci.category[i].brands.length;j++){
+                      formData.checked.push(sviPodaci.category[i].brands[j]['id'])
+                    }
                 }
               }
             },
@@ -167,10 +170,13 @@
                 izmenaPodataka.name = formData.name;
                 console.log(izmenaPodataka);
                 $.ajax({
-                    url: window.base_url+'/categories',
+                    url: window.base_url+'/categories/'+izmenaPodataka.id,
                     type: 'PATCH',
                     dataType: "json",
-                    data: this.izmenaPodataka,
+                    data: {
+                      name : izmenaPodataka.name,
+                      type : 'category'
+                    },
                     success: function(data) {},
                     error: function(xhr, status, error) {
                                             $("#err").html("Dogodila se greska - "+ xhr.status + "<br/> Poslati su: [očekivani tip], [id]: "+izmenaPodataka.id+" i [name]: "+izmenaPodataka.name).removeClass('nev');
@@ -188,6 +194,7 @@
                 this.errors = [];
                 var reName = /^[A-Z]{1}[A-z,-\s0-9]{1,20}$/;
                 if (!reName.test(this.forma.name)) this.errors.push("Ime kategorije nije u dobrom formatu!");
+                if(this.forma.checked.length == 0) this.errors.push("Brend je obavezan");
                 else{
                   $.ajax({
                       url: window.base_url+'/categories',
@@ -195,6 +202,7 @@
                       dataType: "json",
                       data: {
                         name : this.forma.name,
+                        brands: this.forma.checked,
                         type : this.forma.type
                       },
                       success: function(data) {
@@ -214,6 +222,7 @@
 
                       }
                   });
+                  this.dohvati()
                   this.dohvati()
                   this.dohvati()
                   this.formReset()

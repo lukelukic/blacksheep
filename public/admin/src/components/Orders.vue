@@ -128,7 +128,7 @@
                     url: window.base_url+'/orders',
                     type: 'POST',
                     dataType: "json",
-                    data: data, //saljem ti jebene statuse, 2-poslata kako god, 3-obijena, 0-prakticno nemoguce jelte
+                    data: data,
                     success: function(data) {
                         $('#feedback').html('Uspešno izvršeno!');
                         console.log(data);

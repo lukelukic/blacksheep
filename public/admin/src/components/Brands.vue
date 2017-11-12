@@ -85,15 +85,15 @@
                         sviPodaci.brand = data.brands;
                     },
                     error: function(xhr, status, error) {
-                        $("#err").html("Greska u dohvatanju podataka iz baze!");
                     }
                 });
             },
             preRemove: function(x) {
+              this.resetHolders();
                 brisanjePodataka.id = x;
                 console.log(this.brisanje);
                 $.ajax({
-                    url: window.base_url+'/categories',
+                    url: window.base_url+'/categories/'+x,
                     type: 'DELETE',
                     dataType: "json",
                     data: {
@@ -103,9 +103,21 @@
 
                     },
                     error: function(xhr, status, error) {
-                        $("#err").html("Dogodila se greska - "+ xhr.status + "<br/> Poslati su [očekivani tip] i [id]: "+brisanjePodataka.id).removeClass('nev');
+                      switch (xhr.status) {
+                        case 409:
+                          $("#err").html("Postoji kategorija koja sadrži odabrani brend").removeClass('nev');
+                          break;
+                        case 200:
+                        $("#err").html("");
+                        break;
+                        default:
+                      $("#err").html("Dogodila se greska - "+ xhr.status + "<br/> Poslati su [očekivani tip] i [id]: "+brisanjePodataka.id).removeClass('nev');
+                      break;
+                      }
+
                     }
                 });
+                this.dohvati()
                 this.dohvati()
                 this.dohvati()
                 this.formReset()
@@ -127,10 +139,13 @@
                 izmenaPodataka.name = formData.name;
                 console.log(izmenaPodataka);
                 $.ajax({
-                    url: window.base_url+'/categories',
+                    url: window.base_url+'/categories/'+izmenaPodataka.id,
                     type: 'PATCH',
                     dataType: "json",
-                    data: this.izmenaPodataka,
+                    data: {
+                      name : izmenaPodataka.name,
+                      type : 'brand'
+                    },
                     success: function(data) {},
                     error: function(xhr, status, error) {
                                             $("#err").html("Dogodila se greska - "+ xhr.status + "<br/> Poslati su: [očekivani tip], [id]: "+izmenaPodataka.id+" i [name]: "+izmenaPodataka.name).removeClass('nev');
@@ -138,8 +153,8 @@
                 });
                 this.dohvati()
                 this.dohvati()
+                this.dohvati()
                 this.formReset()
-                console.log('dohvaceno opet');
             },
             newOne: function() {
                 this.resetHolders();
@@ -165,15 +180,20 @@
                           case 201:
                           $("#cat").html("Brend uspešno unet!").removeClass('nev');
                           break;
+                          case 200:
+                          $("#cat").html("Brend uspešno unet!").removeClass('nev');
+                          breakl
                           case 400:
                           $("#cat").html("Brend sa istim imenom već postoji!").removeClass('nev');
                             break;
                           default:
                           $("#err").html("Dogodila se greška - "+ xhr.status).removeClass('nev');
+                          break;
                         }
 
                       }
                   });
+                  this.dohvati()
                   this.dohvati()
                   this.dohvati()
                   this.formReset()

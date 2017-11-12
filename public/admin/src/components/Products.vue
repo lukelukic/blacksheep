@@ -257,7 +257,10 @@ switchToInsert: function(){
                             }
                         }
                     });
-                    // ajax-end
+                    this.dohvati()
+                    this.dohvati()
+                    this.dohvati()
+                    this.formReset()
                 } else {
                     return false;
                 }
@@ -272,7 +275,7 @@ switchToInsert: function(){
                         this.forma.name = sviPodaci.products[i]['name'];
                         this.forma.description = sviPodaci.products[i]['description'];
                         sviPodaci.products[i]['is_offer'] == 1 ? this.forma.is_offer = 1 : this.forma.is_offer = 0;
-                        this.forma.price = sviPodaci.products[i]['prices'][0].price; // E moj Luka
+                        this.forma.price = sviPodaci.products[i]['prices'][0].price; 
                         if (sviPodaci.products[i]['colors'].length > 0) {
 
                             this.forma.bojanJe = true;
@@ -284,6 +287,7 @@ switchToInsert: function(){
                                     }
 
                             }
+
                         }
                         this.forma.brand_id = sviPodaci.products[i]['brand_id'];
                         this.forma.type_id = sviPodaci.products[i]['type_id'];
@@ -387,6 +391,10 @@ switchToInsert: function(){
                           }
                       }
                   });
+                  this.dohvati()
+                  this.dohvati()
+                  this.dohvati()
+                  this.formReset()
 
             }},
             dohvati: function() {
@@ -418,8 +426,8 @@ preRemove: function(x) {
     });
     this.dohvati()
     this.dohvati()
+    this.dohvati()
     this.formReset()
-    console.log('dohvaceno opet');
 },
         },
         beforeMount() {
@@ -454,7 +462,7 @@ preRemove: function(x) {
                 id: null,
                 name: null
             }],
-            price: ['1500'], //ovisno od is_offer
+            price: [], //ovisno od is_offer
             colors: [{
                 id: 1,
                 hex: '#ff0000',

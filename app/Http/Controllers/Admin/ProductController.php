@@ -67,11 +67,7 @@ class ProductController extends Controller
             }
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-<<<<<<< HEAD
-            $status = 200;
-=======
             $status = 500;
->>>>>>> a973286bf9d2c00a6bebd27541c81aa557a0b86a
         }
         return response($data, $status);
     }
