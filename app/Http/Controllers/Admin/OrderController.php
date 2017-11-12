@@ -26,12 +26,14 @@ class OrderController extends Controller
         $order = Order::getRepository()->findById($id);
         $status = 404;
         if ($order) {
-           if(!$request->has("removedItems") || !$request->has("statusId")) {
+           if(!$request->has("statusId")) {
                $status = 422;
            } else {
                 try {
-                    foreach($request->get("removedItems") as $product_id) {
-                        $order->products()->detach($product_id);
+                    if($request->has('removedItems')) {
+                        foreach($request->get("removedItems") as $product_id) {
+                            $order->products()->detach($product_id);
+                        }
                     }
                     $order->status_id = $request->get("statusId");
                     $order->save();
