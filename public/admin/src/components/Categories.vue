@@ -15,7 +15,7 @@
             <ul style='list-style-type:none; overflow:scroll; height:150px' class='form-control'>
           <li v-for='c in forma.brands'>{{c.name}}<input type='checkbox' v-model='c.checked' :value='c.id' :id='c.id' class='form-control chbWidth'/></li>
           </ul>
-          {{forma.brands.checked}}
+          {{forma.checked}}
         </td>
         </tr>
         <tr>

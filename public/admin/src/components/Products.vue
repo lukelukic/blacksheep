@@ -167,7 +167,7 @@ switchToInsert: function(){
             this.forma.name = '';
             this.forma.description = '';
             this.forma.price = [];
-            document.getElementById('file').files = [];
+            // document.getElementById('file').files = [];
             this.forma.bojanJe = false;
             this.forma.brand_id = 0;
             this.forma.type_id = 0;
@@ -220,6 +220,7 @@ switchToInsert: function(){
                     if (this.forma.special) this.unos.special = 1;
                     if (this.forma.type_id != 0) this.unos.type_id = this.forma.type_id;
                     if (this.forma.checked.length > 0) this.unos.checked = this.forma.checked;
+
                     var insertData = {
                       brand_id : this.unos.brand_id,
                       type_id : this.unos.type_id,
@@ -232,7 +233,7 @@ switchToInsert: function(){
                       price: this.unos.price,
                       special: this.unos.special
                     }
-                    console.log(insertData);
+
                     // ajax
                     $.ajax({
                         url: window.base_url+'/products',
@@ -264,18 +265,21 @@ switchToInsert: function(){
             preEdit: function(x) {
               this.forma.id = x;
                 this.forma.isInsert = false;
+                this.forma.bojanJe = false;
                 for (var i = 0; i < sviPodaci.products.length; i++) {
                     if (sviPodaci.products[i]['id'] == x) {
                         this.forma.id = sviPodaci.products[i]['id'];
                         this.forma.name = sviPodaci.products[i]['name'];
                         this.forma.description = sviPodaci.products[i]['description'];
                         sviPodaci.products[i]['is_offer'] == 1 ? this.forma.is_offer = 1 : this.forma.is_offer = 0;
-                        this.forma.price = sviPodaci.products[i]['price'][0].price; // E moj Luka
+                        this.forma.price = sviPodaci.products[i]['prices'][0].price; // E moj Luka
                         if (sviPodaci.products[i]['colors'].length > 0) {
 
                             this.forma.bojanJe = true;
+
                             for (var j = 0; j < sviPodaci.products[i]['colors'].length; j++) {
-                                    if (sviPodaci.products[i]['colors'][j]['id'] == this.forma.dbcolors[j]['id']) {
+                                this.forma.dbcolors[j].checked = false;
+                                    if (this.forma.dbcolors[j]['id']==sviPodaci.products[i]['colors'][j]['id']  ) {
                                         this.forma.dbcolors[j]['checked'] = true;
                                     }
 
@@ -339,12 +343,23 @@ switchToInsert: function(){
                   //   price: this.unos.price,
                   //   special: this.unos.special
                   // }
+                  var data = {
+                    brand_id : this.unos.brand_id,
+                    type_id : this.unos.type_id,
+                    colors : this.unos.checked,
+                    description: this.unos.description,
+                    is_active: this.unos.is_active,
+                    is_offer: this.unos.is_offer,
+                    name: this.unos.name,
+                    price: this.unos.price,
+                    special: this.unos.special
+                  }
+                  console.log(data);
                   $.ajax({
-                      url: window.base_url+'/products',
+                      url: window.base_url+'/products/'+this.unos.id,
                       type: 'PATCH',
                       dataType: "json",
                       data: {
-                        id : this.unos.id,
                         brand_id : this.unos.brand_id,
                         type_id : this.unos.type_id,
                         colors : this.unos.checked,
@@ -352,10 +367,8 @@ switchToInsert: function(){
                         is_active: this.unos.is_active,
                         is_offer: this.unos.is_offer,
                         name: this.unos.name,
-                        picture: this.unos.picture,
                         price: this.unos.price,
-                        special: this.unos.special,
-                        created_at : new Date().toLocaleDateString()
+                        special: this.unos.special
                       },
                       success: function(data) {
                           $("#feedback").html("Proizvod je uspešno izmenjen!");
@@ -393,10 +406,9 @@ switchToInsert: function(){
 },
 preRemove: function(x) {
     $.ajax({
-        url: window.base_url+'/products',
+        url: window.base_url+'/products/'+x,
         type: 'DELETE',
         dataType: "json",
-        data: x,
         success: function(data) {
 
         },
@@ -478,7 +490,7 @@ preRemove: function(x) {
             id: 1,
             name: 'tip'
         }],
-        price: [''],
+        price: '',
         dbcolors: [{
             id: 1,
             hex: '#ff0000',
@@ -532,7 +544,7 @@ preRemove: function(x) {
             file: 'p4.jpg',
             alt: 'slika'
         }],
-        price: '',
+        price: 23,
         colors: [{
             id: 1
         }],
@@ -555,7 +567,7 @@ preRemove: function(x) {
           file: 'p4.jpg',
           alt: 'slika'
       }],
-      price: [],
+      price: 123,
       colors: [{
           id: 1
       }],
