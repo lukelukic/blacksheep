@@ -48,12 +48,7 @@ class ProductController extends Controller
                 $product->type_id = $dto->type_id ? $dto->type_id : null;
                 $product->description = $dto->description;
                 $product->save();
-                foreach($dto->colors as $id) {
-                    $color = Color::find($id);
-                    if ($color) {
-                        $product->colors()->attach($color->id);
-                    }
-                }
+                $product->colors()->sync($dto->colors);
                 $price = new Price();
                 if($product->is_offer) {
                     $price->is_offer = true;
@@ -63,7 +58,9 @@ class ProductController extends Controller
                 $price->save();
                 $status = 201;
             } else {
-                $data = $validator->getErrors();
+                foreach($validator->getErrors() as $err) {
+                    Log::error($err[0]);
+                }
             }
         } catch (\Exception $e) {
             Log::error($e->getMessage());
@@ -98,12 +95,7 @@ class ProductController extends Controller
                 $product->type_id = $dto->type_id ? $dto->type_id : null;
                 $product->description = $dto->description;
                 $product->save();
-                foreach($dto->colors as $id) {
-                    $color = Color::find($id);
-                    if ($color) {
-                        $product->colors()->sync($color->id);
-                    }
-                }
+                $product->colors()->sync($dto->colors);
                 $price = new Price();
                 if($product->is_offer) {
                     $price->is_offer = true;
@@ -113,7 +105,9 @@ class ProductController extends Controller
                 $price->save();
                 $status = 201;
             } else {
-                $data = $validator->getErrors();
+                foreach($validator->getErrors() as $err) {
+                    Log::error($err[0]);
+                }
             }
         } catch (\Exception $e) {
             Log::error($e->getMessage());

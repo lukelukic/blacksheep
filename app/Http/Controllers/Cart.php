@@ -30,12 +30,7 @@ class Cart extends Controller
         }
 
         $repo = Product::getRepository();
-        $special = ProductToAssoc::convert($repo->specialProducts());
-        return view('cart', [
-            'data' => [
-                'latestProducts' => $special,
-            ]
-        ]);
+        return view('cart');
     }
 
     public function place(Request $request)

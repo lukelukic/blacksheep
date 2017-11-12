@@ -41,7 +41,7 @@ class ProductDTO extends ObjectDTO
             //'file' => 'required|image|max:2000',
             'colors' => 'required|array',
             'price' => 'required|numeric',
-            'type_id' => 'numeric|exists:types',
+            'type_id' => 'numeric',
             'brand_id' => 'numeric',
             'description' => 'required',
             'name' => 'required'

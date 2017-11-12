@@ -34,7 +34,13 @@ class ProductRepository extends AbstractRepository
 
     public function findAll()
     {
-        return $this->model->all();
+       return $this->model->with([
+            'picture',
+            'prices' => function($query) {
+                $query->orderBy('created_at', 'desc');
+            },
+            'colors'
+        ])->get();
     }
 
     public function exportAll()
