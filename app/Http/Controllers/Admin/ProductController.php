@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Color;
 use App\DTO\ProductDTO;
+use App\Picture;
 use App\Price;
 use App\Product;
 use App\ProductCategory;
@@ -48,11 +49,24 @@ class ProductController extends Controller
                 $product->type_id = $dto->type_id ? $dto->type_id : null;
                 $product->description = $dto->description;
                 $product->save();
-                $product->colors()->sync($dto->colors);
+                $product->colors()->sync(json_decode($dto->colors));
                 $price = new Price();
                 if($product->is_offer) {
                     $price->is_offer = true;
                 }
+
+                if($request->hasFile('picture')) {
+                    $fileName = $request->file('picture')->getFilename() . "_" . mktime(time()) . "." . $request->file('picture')->extension();
+                    Log::error($fileName);
+                    $picture = new Picture();
+                    $picture->alt = $product->name;
+                    $picture->file = $fileName;
+                    $picture->save();
+                    $request->file('picture')->move(base_path("/public/assets/pages/img/products/"), $fileName);
+                    $product->picture_id = $picture->id;
+                    $product->save();
+                }
+
                 $price->price = $dto->price;
                 $price->product_id = $product->id;
                 $price->save();
@@ -88,6 +102,11 @@ class ProductController extends Controller
                 $product = Product::getRepository()->findById($id);
                 $product->brand_id = $dto->brand_id;
                 $product->name = $dto->name;
+
+                if($request->hasFile('picture')){
+                    Log::error("ima fajl");
+                }
+
                 $product->picture_id = 24;
                 $product->special = $dto->special;
                 $product->is_offer = $dto->is_offer;
@@ -95,7 +114,7 @@ class ProductController extends Controller
                 $product->type_id = $dto->type_id ? $dto->type_id : null;
                 $product->description = $dto->description;
                 $product->save();
-                $product->colors()->sync($dto->colors);
+                $product->colors()->sync(json_decode($dto->colors));
                 $price = new Price();
                 if($product->is_offer) {
                     $price->is_offer = true;
