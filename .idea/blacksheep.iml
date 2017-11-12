@@ -12,6 +12,22 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
+      <library name="PHP">
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/vendor/barryvdh/laravel-ide-helper" />
+          <root url="file://$MODULE_DIR$/vendor/barryvdh/reflection-docblock" />
+          <root url="file://$MODULE_DIR$/vendor/intervention/validation" />
+          <root url="file://$MODULE_DIR$/vendor/symfony/class-loader" />
+        </CLASSES>
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/vendor/barryvdh/laravel-ide-helper" />
+          <root url="file://$MODULE_DIR$/vendor/barryvdh/reflection-docblock" />
+          <root url="file://$MODULE_DIR$/vendor/intervention/validation" />
+          <root url="file://$MODULE_DIR$/vendor/symfony/class-loader" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
       <library name="PHARS">
         <CLASSES>
           <root url="phar://$MODULE_DIR$/vendor/phpunit/phpunit/tests/_files/phpunit-example-extension/tools/phpunit.d/phpunit-example-extension-1.0.1.phar/" />

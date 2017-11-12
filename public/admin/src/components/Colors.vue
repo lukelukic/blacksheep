@@ -55,20 +55,23 @@ methods: {
     $('#success').html("").addClass('nev');
         var type ='';
         var data ='';
+        var url ='';
           switch (this.formData.isInsert) {
               case true:
                   type = 'POST';
                   data = {hex:this.formData.hex}
+                  url = window.base_url+'/colors'
                   break;
               case false:
                   type = 'PATCH';
-                  data = {id:this.formData.id,hex:this.formData.hex}
+                  data = {hex:this.formData.hex}
+                  url = window.base_url+'/colors/'+this.formData.id;
                   break;
               default:
 
           }
           $.ajax({
-              url: window.base_url+'/colors',
+              url: url,
               type: type,
               data: data,
               success: function(data) {

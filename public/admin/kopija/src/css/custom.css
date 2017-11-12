@@ -1,0 +1,53 @@
+.nev{
+  display:none
+}
+.chbWidth{
+  width:13px
+}
+/*.colorDiv{
+  width:20px;
+  height:20px;
+  border:1px solid #000
+}*/
+/*.check-with-label:checked + .label-for-check {
+  border:2px solid red;
+}*/
+.label-for-check{
+  border:1px solid #ccc;
+  padding:10px;
+  margin:0 0 10px;
+  display:block;
+}
+label:hover{
+  background:#eee;
+  cursor:pointer
+}
+.choosenColors{
+  width:20px;
+  height: 20px;
+  display:inline-block;
+  padding:10px;
+  margin-right: 10px;
+  border:1px solid #ccc
+}
+.check-with-label:checked + .label-for-check{
+  width:200px!important
+}
+.centered{
+  text-align: center;
+}
+#color{
+height:50px;
+width:100%
+}
+.title{
+  font-size:22px;
+  font-weight: bold;
+  padding:10px 0px 10px 10px;
+  color:rgba(215,6,43,1)
+}
+.p20{
+  border:1px solid green;
+  margin-left:2px;
+  width:100%
+}

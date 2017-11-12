@@ -49,10 +49,11 @@ const routes = [
 
 const router = new VueRouter({
   routes,
-  mode: 'history'
+  mode: 'history',
+  relative : true
 })
 window.base_url = 'http://localhost/blacksheep/public/index.php/admin';
-
+// window.base_url = 'http://admin.blacksheepmobstore.com';
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

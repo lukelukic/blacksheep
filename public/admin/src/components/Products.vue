@@ -38,12 +38,12 @@
       </tr>
       <tr v-if='forma.is_offer == 0'>
         <td><label for='price'>Cena:</label></td>
-        <td><input type='text' name='price' id='price' class='form-control' placeholder="Cena proizvoda" v-model='forma.prices'/></td>
+        <td><input type='text' name='price' id='price' class='form-control' placeholder="Cena proizvoda" v-model='forma.price'/></td>
         <td><i>Akcija?</i><input type='checkbox' class='form-control' v-model='forma.is_offer'/></td>
       </tr>
       <tr v-else>
         <td><label for='price'>Cena:</label></td>
-        <td><input type='text' name='price' id='price' class='form-control' placeholder="Akcijska cena proizvoda" v-model='forma.prices'/></td>
+        <td><input type='text' name='price' id='price' class='form-control' placeholder="Akcijska cena proizvoda" v-model='forma.price'/></td>
         <td><span>Akcija?</span><input type='checkbox' class='form-control' v-model='forma.is_offer'/></td>
       </tr>
       <tr>
@@ -115,7 +115,7 @@
 switchToInsert: function(){
   this.forma.name = '';
   this.forma.description = '';
-  this.forma.prices = [];
+  this.forma.price = [];
   this.forma.bojanJe = false;
   this.forma.brand_id = 0;
   this.forma.type_id = 0;
@@ -166,8 +166,8 @@ switchToInsert: function(){
           formReset : function(){
             this.forma.name = '';
             this.forma.description = '';
-            this.forma.prices = [];
-            document.getElementById('file').files = [];
+            this.forma.price = [];
+            // document.getElementById('file').files = [];
             this.forma.bojanJe = false;
             this.forma.brand_id = 0;
             this.forma.type_id = 0;
@@ -184,7 +184,7 @@ switchToInsert: function(){
                 if (!reDescription.test(this.forma.description)) {
                     this.errors.push('Opis nije u dobrom formatu. [min: 10]');
                 }
-                if (!rePrice.test(this.forma.prices)) {
+                if (!rePrice.test(this.forma.price)) {
                     this.errors.push('Cena nije u dobrom formatu. [123]');
                 }
                 if (this.forma.brand_id == 0) {
@@ -208,26 +208,38 @@ switchToInsert: function(){
                     this.unos.description = this.forma.description;
                     this.unos.is_active = 1; //Postaje aktivan
                     if (this.forma.is_offer) this.unos.is_offer = 1;
-                    this.unos.prices.push(this.forma.prices);
+                    this.unos.price = this.forma.price;
                     var fileInput = document.getElementById('file');
                     if (fileInput.files.length == 0) {
-                        this.unos.picture[0].file = 'nemaslike.jpg';
-                        this.unos.picture[0].alt = 'Slika nije dostupna';
+                      this.unos.picture=null;
                     } else {
-                        this.unos.picture[0].file = fileInput.files[0]['name'];
-                        this.unos.picture[0].alt = this.forma.name;
+                        this.unos.picture.file = fileInput.files[0]['name'];
+                        this.unos.picture.alt = this.forma.name;
                     }
                     this.unos.brand_id = this.forma.brand_id;
                     if (this.forma.special) this.unos.special = 1;
                     if (this.forma.type_id != 0) this.unos.type_id = this.forma.type_id;
                     if (this.forma.checked.length > 0) this.unos.checked = this.forma.checked;
-                    console.log(this.unos);
+
+                    var insertData = {
+                      brand_id : this.unos.brand_id,
+                      type_id : this.unos.type_id,
+                      colors : this.unos.checked,
+                      description: this.unos.description,
+                      is_active: this.unos.is_active,
+                      is_offer: this.unos.is_offer,
+                      name: this.unos.name,
+                      picture: this.unos.picture,
+                      price: this.unos.price,
+                      special: this.unos.special
+                    }
+
                     // ajax
                     $.ajax({
                         url: window.base_url+'/products',
                         type: 'POST',
                         dataType: "json",
-                        data: this.unos,
+                        data: insertData,
                         success: function(data) {
                             $("#feedback").html("Proizvod je uspešno unet!");
                         },
@@ -245,7 +257,10 @@ switchToInsert: function(){
                             }
                         }
                     });
-                    // ajax-end
+                    this.dohvati()
+                    this.dohvati()
+                    this.dohvati()
+                    this.formReset()
                 } else {
                     return false;
                 }
@@ -253,22 +268,26 @@ switchToInsert: function(){
             preEdit: function(x) {
               this.forma.id = x;
                 this.forma.isInsert = false;
+                this.forma.bojanJe = false;
                 for (var i = 0; i < sviPodaci.products.length; i++) {
                     if (sviPodaci.products[i]['id'] == x) {
                         this.forma.id = sviPodaci.products[i]['id'];
                         this.forma.name = sviPodaci.products[i]['name'];
                         this.forma.description = sviPodaci.products[i]['description'];
                         sviPodaci.products[i]['is_offer'] == 1 ? this.forma.is_offer = 1 : this.forma.is_offer = 0;
-                        this.forma.prices = sviPodaci.products[i].prices; // E moj Luka
+                        this.forma.price = sviPodaci.products[i]['prices'][0].price; 
                         if (sviPodaci.products[i]['colors'].length > 0) {
+
                             this.forma.bojanJe = true;
+
                             for (var j = 0; j < sviPodaci.products[i]['colors'].length; j++) {
-                                if (sviPodaci.products[i]['colors'][j]['checked'] == true) {
-                                    if (sviPodaci.products[i]['colors'][j]['id'] == this.forma.dbcolors[j]['id']) {
+                                this.forma.dbcolors[j].checked = false;
+                                    if (this.forma.dbcolors[j]['id']==sviPodaci.products[i]['colors'][j]['id']  ) {
                                         this.forma.dbcolors[j]['checked'] = true;
                                     }
-                                }
+
                             }
+
                         }
                         this.forma.brand_id = sviPodaci.products[i]['brand_id'];
                         this.forma.type_id = sviPodaci.products[i]['type_id'];
@@ -276,7 +295,7 @@ switchToInsert: function(){
                 }
             },
             edit: function() {
-
+              this.unos.id = this.forma.id;
               this.errors = [];
               var reName = /^[A-Z]{1}[A-z0-9\s]{1,15}$/;
               var reDescription = /^[A-z0-9\.\,\-\*\s]{10,100}$/;
@@ -287,7 +306,7 @@ switchToInsert: function(){
               if (!reDescription.test(this.forma.description)) {
                   this.errors.push('Opis nije u dobrom formatu. [min: 10]');
               }
-              if (!rePrice.test(this.forma.prices)) {
+              if (!rePrice.test(this.forma.price)) {
                   this.errors.push('Cena nije u dobrom formatu. [123]');
               }
               if (this.forma.brand_id == 0) {
@@ -304,11 +323,10 @@ switchToInsert: function(){
                   this.unos.description = this.forma.description;
                   this.unos.is_active = 1; //Postaje aktivan
                   if (this.forma.is_offer) this.unos.is_offer = 1;
-                  this.unos.prices.push(this.forma.prices);
+                  this.unos.price = this.forma.price;
                   var fileInput = document.getElementById('file');
                   if (fileInput.files.length == 0) {
-                      this.unos.picture[0].file = 'nemaslike.jpg';
-                      this.unos.picture[0].alt = 'Slika nije dostupna';
+                    this.unos.picture = null;
                   } else {
                       this.unos.picture[0].file = fileInput.files[0]['name'];
                       this.unos.picture[0].alt = this.forma.name;
@@ -317,12 +335,45 @@ switchToInsert: function(){
                   if (this.forma.special) this.unos.special = 1;
                   if (this.forma.type_id != 0) this.unos.type_id = this.forma.type_id;
                   if (this.forma.checked.length > 0) this.unos.checked = this.forma.checked;
-                  console.log(this.unos);
+                  // var editData = {
+                  //   brand_id : this.unos.brand_id,
+                  //   type_id : this.unos.type_id,
+                  //   colors : this.unos.checked,
+                  //   description: this.unos.description,
+                  //   is_active: this.unos.is_active,
+                  //   is_offer: this.unos.is_offer,
+                  //   name: this.unos.name,
+                  //   picture: this.unos.picture,
+                  //   price: this.unos.price,
+                  //   special: this.unos.special
+                  // }
+                  var data = {
+                    brand_id : this.unos.brand_id,
+                    type_id : this.unos.type_id,
+                    colors : this.unos.checked,
+                    description: this.unos.description,
+                    is_active: this.unos.is_active,
+                    is_offer: this.unos.is_offer,
+                    name: this.unos.name,
+                    price: this.unos.price,
+                    special: this.unos.special
+                  }
+                  console.log(data);
                   $.ajax({
-                      url: window.base_url+'/products',
+                      url: window.base_url+'/products/'+this.unos.id,
                       type: 'PATCH',
                       dataType: "json",
-                      data: this.unos,
+                      data: {
+                        brand_id : this.unos.brand_id,
+                        type_id : this.unos.type_id,
+                        colors : this.unos.checked,
+                        description: this.unos.description,
+                        is_active: this.unos.is_active,
+                        is_offer: this.unos.is_offer,
+                        name: this.unos.name,
+                        price: this.unos.price,
+                        special: this.unos.special
+                      },
                       success: function(data) {
                           $("#feedback").html("Proizvod je uspešno izmenjen!");
                       },
@@ -340,6 +391,10 @@ switchToInsert: function(){
                           }
                       }
                   });
+                  this.dohvati()
+                  this.dohvati()
+                  this.dohvati()
+                  this.formReset()
 
             }},
             dohvati: function() {
@@ -359,10 +414,9 @@ switchToInsert: function(){
 },
 preRemove: function(x) {
     $.ajax({
-        url: window.base_url+'/products',
+        url: window.base_url+'/products/'+x,
         type: 'DELETE',
         dataType: "json",
-        data: x,
         success: function(data) {
 
         },
@@ -372,8 +426,8 @@ preRemove: function(x) {
     });
     this.dohvati()
     this.dohvati()
+    this.dohvati()
     this.formReset()
-    console.log('dohvaceno opet');
 },
         },
         beforeMount() {
@@ -408,7 +462,7 @@ preRemove: function(x) {
                 id: null,
                 name: null
             }],
-            prices: ['1500'], //ovisno od is_offer
+            price: [], //ovisno od is_offer
             colors: [{
                 id: 1,
                 hex: '#ff0000',
@@ -444,7 +498,7 @@ preRemove: function(x) {
             id: 1,
             name: 'tip'
         }],
-        prices: [''],
+        price: '',
         dbcolors: [{
             id: 1,
             hex: '#ff0000',
@@ -485,6 +539,7 @@ preRemove: function(x) {
         }]
     }
     var dodavanjePodataka = {
+         id: '',
         name: '',
         description: '',
         is_active: 1,
@@ -497,7 +552,7 @@ preRemove: function(x) {
             file: 'p4.jpg',
             alt: 'slika'
         }],
-        prices: [],
+        price: 23,
         colors: [{
             id: 1
         }],
@@ -520,7 +575,7 @@ preRemove: function(x) {
           file: 'p4.jpg',
           alt: 'slika'
       }],
-      prices: [],
+      price: 123,
       colors: [{
           id: 1
       }],

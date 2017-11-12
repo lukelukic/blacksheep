@@ -32,7 +32,7 @@
           </tr>
           <tr>
           <td>Ime i prezime</td>
-          <td v-if='orderPodaci.clicked'>{{orderPodaci.fullname}}</td>
+          <td v-if='orderPodaci.clicked'>{{orderPodaci.user.firstName+" "+orderPodaci.user.lastName}}</td>
           </tr>
           <tr>
           <td>Proizvodi</td>
@@ -40,7 +40,8 @@
           <div v-if='orderPodaci.filter == 1'>
             <select id='proizvodi' v-model='orderPodaci.cancel' class='form-control'  multiple>
               <option v-for='order in orderPodaci.products'>{{order.name+' x '+order.pivot.amount}}</option>
-            </select></div>
+            </select>
+          </div>
           <div v-else><span v-for='order in orderPodaci.products'>{{order.name}} | </span></div>
           </form>
         </td>
@@ -59,19 +60,19 @@
           </tr>
           <tr>
           <td>Adresa</td>
-          <td v-if='orderPodaci.clicked'>{{orderPodaci.address}}</td>
+          <td v-if='orderPodaci.clicked'>{{orderPodaci.user.address}}</td>
           </tr>
           <tr>
           <td>Telefon</td>
-          <td v-if='orderPodaci.clicked'>{{orderPodaci.tel}}</td>
+          <td v-if='orderPodaci.clicked'>{{orderPodaci.user.phone}}</td>
           </tr>
           <tr>
           <td>Grad</td>
-          <td v-if='orderPodaci.clicked'>{{orderPodaci.city}}</td>
+          <td v-if='orderPodaci.clicked'>{{orderPodaci.user.city}}</td>
           </tr>
           <tr>
           <td>Poštanski broj</td>
-          <td v-if='orderPodaci.clicked'>{{orderPodaci.zipcode}}</td>
+          <td v-if='orderPodaci.clicked'>{{orderPodaci.user.postNumber}}</td>
           </tr>
           <tr>
           <td colspan='8' v-if='orderPodaci.filter == 1'><button class='btn btn-success' v-if='orderPodaci.cancel.length==0' @click='posalji(2)'>Posalji</button><button v-if='orderPodaci.cancel.length>0' class='btn btn-danger' @click='posalji(3)'>Otkazi</button>&nbsp;<button v-if='orderPodaci.cancel.length>0' class='btn btn-info' @click='posalji(2)'>Potvrdi sa izmenama</button><button class='btn btn-danger' v-if='orderPodaci.cancel.length==0' @click='obrisi'>Obrisi</button></td>
@@ -103,14 +104,15 @@
                 this.resetHolders();
                 var data = {
                     id: this.orderPodaci.id,
-                    fullname: this.orderPodaci.fullname,
+                    firstName: this.orderPodaci.user.firstName,
+                    lastName: this.orderPodaci.user.lastName,
                     products: this.orderPodaci.products,
                     price: this.orderPodaci.price,
                     created_at: this.orderPodaci.created_at,
-                    address: this.orderPodaci.address,
-                    tel: this.orderPodaci.tel,
-                    city: this.orderPodaci.city,
-                    zipcode: this.orderPodaci.zipcode
+                    address: this.orderPodaci.user.address,
+                    tel: this.orderPodaci.user.tel,
+                    city: this.orderPodaci.user.city,
+                    zipcode: this.orderPodaci.user.postNumber
                 }
                 console.log(data);
                 switch (i) {
@@ -126,7 +128,7 @@
                     url: window.base_url+'/orders',
                     type: 'POST',
                     dataType: "json",
-                    data: data, //saljem ti jebene statuse, 2-poslata kako god, 3-obijena, 0-prakticno nemoguce jelte
+                    data: data,
                     success: function(data) {
                         $('#feedback').html('Uspešno izvršeno!');
                         console.log(data);
@@ -154,20 +156,22 @@
                 });
             },
             openPanel: function(id) {
+              console.log(this.orderPodaci.user);
                 this.resetHolders();
                 this.orderPodaci.clicked = true;
                 for (var i = 0; i < this.orderBazaPodaci.length; i++) {
                     if (this.orderBazaPodaci[i]['id'] == id) {
                         this.orderPodaci.id = this.orderBazaPodaci[i]['id'];
-                        this.orderPodaci.fullname = this.orderBazaPodaci[i]['fullname'];
+                        this.orderPodaci.user.firstName = this.orderBazaPodaci[i].user.firstName;
+                        this.orderPodaci.user.lastName = this.orderBazaPodaci[i].user.lastName;
                         this.orderPodaci.products = this.orderBazaPodaci[i]['products'];
                         this.orderPodaci.price = this.orderBazaPodaci[i]['price'];
                         this.orderPodaci.status_id = this.orderBazaPodaci[i]['status_id'];
                         this.orderPodaci.created_at = this.orderBazaPodaci[i]['created_at'];
-                        this.orderPodaci.address = this.orderBazaPodaci[i]['address'];
-                        this.orderPodaci.tel = this.orderBazaPodaci[i]['tel'];
-                        this.orderPodaci.city = this.orderBazaPodaci[i]['tel'];
-                        this.orderPodaci.zipcode = this.orderBazaPodaci[i]['tel'];
+                        this.orderPodaci.user.address = this.orderBazaPodaci[i].user.address;
+                        this.orderPodaci.user.tel = this.orderBazaPodaci[i].user.tel;
+                        this.orderPodaci.user.city = this.orderBazaPodaci[i].user.city;
+                        this.orderPodaci.user.postNumber = this.orderBazaPodaci[i].user.postNumber;
                     }
                 }
             },
@@ -189,8 +193,6 @@
                 type:'GET',
                 dataType: 'json',
                 success: function(data){
-                  console.log(data.orders);
-                  console.log(self.orderBazaPodaci);
                   self.orderBazaPodaci = data.orders;
                 },
                 error: function(xhr, status, error){
@@ -220,14 +222,18 @@
               created_at : new Date().toLocaleDateString()
             }
         }],
+        user:{
+          firstName : "Bora",
+          lastName : "Corba",
+          email : "hehe",
+          phone : "063",
+          address : "hehe",
+          city: "Rsn",
+          postNumber:"11500"
+        },
         price: "2358",
         created_at: new Date().toLocaleDateString(),
-        address: "Adresa",
-        tel: "064 555 333",
-        city: "Beograd",
-        zipcode: "11000",
         status_id: '0',
-        fullname: "Nex Lukic",
         filter: '1',
         cancel: []
     }
@@ -268,14 +274,18 @@
               created_at : new Date().toLocaleDateString()
             }
         }],
+        user:{
+          firstName : "Bora",
+          lastName : "Corba",
+          email : "hehe",
+          phone : "063",
+          address : "hehe",
+          city: "Rsn",
+          postNumber:"11500"
+        },
         price: "500",
         status_id: 1,
         created_at: new Date().toLocaleDateString(),
-        tel: "064 15 13 10",
-        city: "Beograd",
-        zipcode: "11000",
-        address: "Adresa",
-        fullname: "Bora Corba"
     }];
 </script>
 <style lang="css">
