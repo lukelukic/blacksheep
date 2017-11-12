@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
@@ -23,8 +24,24 @@ class OrderController extends Controller
     public function update(Request $request, $id)
     {
         $order = Order::getRepository()->findById($id);
-        $status = 400;
-        var_dump($request->all());
+        $status = 404;
+        if ($order) {
+           if(!$request->has("removedItems") || !$request->has("statusId")) {
+               $status = 422;
+           } else {
+                try {
+                    foreach($request->get("removedItems") as $product_id) {
+                        $order->products()->detach($product_id);
+                    }
+                    $order->status_id = $request->get("statusId");
+                    $order->save();
+                    $status = 200;
+                } catch (\Exception $e) {
+                    Log::error($e->getMessage());
+                    $status = 500;
+                }
+           }
+        }
         return response(null, $status);
     }
     
