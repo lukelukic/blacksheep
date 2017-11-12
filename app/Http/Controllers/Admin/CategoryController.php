@@ -108,6 +108,9 @@ class CategoryController extends Controller
                 case 'category':
                     $dto = new CategoryDTO();
                     $model = Category::getRepository()->findById($id);
+                    if ($request->has("brands")) {
+                       $model->brands()->sync($request->get("brands"));
+                    }
                     break;
                 case 'type':
                     $dto = new TypeDTO();
