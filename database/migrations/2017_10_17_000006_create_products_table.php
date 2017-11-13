@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
             //Fields
             $table->increments('id');
             $table->timestamps();
-            $table->string("name", 60)->unique();
+            $table->string("name", 150);
             $table->mediumText("description");
             $table->boolean("is_active")->default(false);
             $table->boolean("is_offer")->default(false);

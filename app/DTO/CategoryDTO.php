@@ -29,7 +29,7 @@ class CategoryDTO extends ObjectDTO
     public function getRules()
     {
         return  [
-            'name' => 'required|min:3|unique:categories'
+            'name' => 'required|min:1|unique:categories'
         ];
     }
 }
