@@ -92,6 +92,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+     //   Log::error($request->getContent());
         $status = 422;
         $data = null;
         try {
@@ -107,7 +108,6 @@ class ProductController extends Controller
                     Log::error("ima fajl");
                 }
 
-                $product->picture_id = 24;
                 $product->special = $dto->special;
                 $product->is_offer = $dto->is_offer;
                 $product->is_active = $dto->is_active;
@@ -122,6 +122,7 @@ class ProductController extends Controller
                 $price->price = $dto->price;
                 $price->product_id = $product->id;
                 $price->save();
+
                 $status = 201;
             } else {
                 foreach($validator->getErrors() as $err) {

@@ -22,5 +22,6 @@ class RequestToObject
             }
         }
         return $object;
+
     }
 }
