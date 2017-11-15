@@ -56,7 +56,13 @@ class ProductRepository extends AbstractRepository
 
     public function search($keyword)
     {
-        return $this->model->where("name", "like", "%$keyword%")->where("is_active",1)->get();
+        return $this->model->with([
+            'picture',
+            'prices' => function($query) {
+                $query->orderBy('created_at', 'desc');
+            },
+            'colors'
+        ])->where("name", "like", "%$keyword%")->where("is_active",1)->get();
     }
     public function latestProducts()
     {

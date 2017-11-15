@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12 col-sm-12">
         <ul class="pagination pull-right" id="pagination">
-            <li id="paginationStart"><a onclick="showPage(1)" href="#position">&laquo;</a></li>
+            <li id="paginationStart"><a onclick="showPage(1)"  href="#position">&laquo;</a></li>
 
 
         </ul>
@@ -26,7 +26,7 @@
             $("#paginationStart").after(paginationItem);
         }
 
-        $("#pagination").append('<li><a id="paginationEnd" onclick="showPage(' + pages + ')" href="#position">&raquo;</a></li>')
+        $("#pagination").append('<li><a id="paginationEnd"  onclick="showPage(' + pages + ')" href="#position">&raquo;</a></li>')
     });
 
     function showPage(page) {

@@ -1,4 +1,5 @@
-                <div class="product-item {{ $col }}">
+                @if($product['is_active'])
+				<div class="product-item {{ $col }}">
                     <div class="pi-img-wrapper">
                         <img src="{{ asset('assets/pages/img/products/' . $product->picture->file) }}" class="img-responsive" alt="{{ $product->picture->alt }}">
                         <div>
@@ -24,5 +25,6 @@
                     <input type="hidden" id="productType" value="{{ $product->type->id }}">
                     @endisset
                 </div>
+				@endif
 
 
