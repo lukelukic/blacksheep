@@ -40,7 +40,7 @@ class ProductRepository extends AbstractRepository
                 $query->orderBy('created_at', 'desc');
             },
             'colors'
-        ])->get();
+        ])->where('is_active',1)->get();
     }
 
     public function exportAll()
@@ -56,7 +56,7 @@ class ProductRepository extends AbstractRepository
 
     public function search($keyword)
     {
-        return $this->model->where("name", "like", "%$keyword%")->get();
+        return $this->model->where("name", "like", "%$keyword%")->where("is_active",1)->get();
     }
     public function latestProducts()
     {

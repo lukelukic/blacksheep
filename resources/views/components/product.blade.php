@@ -20,6 +20,9 @@
                     @endif
 
                     <input type="hidden" id="productBrand" value="{{ $product->brand->id }}">
+                    @isset($product->type->id)
+                    <input type="hidden" id="productType" value="{{ $product->type->id }}">
+                    @endisset
                 </div>
 
 
