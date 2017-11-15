@@ -1,6 +1,6 @@
 <div class='filterBox'>
 @foreach($categories as $category)
-<input type="checkbox" name="brandChbs" onchange="hideByBrand({{ $category->id }})" name="{{strtolower(trim($category['name'],' '))}}" value="{{$category['id']}}">{{$category['name']}}<br>
+<input type="checkbox" name="brandChbs" onchange="hideByBrand({{ $category['id'] }})" name="{{strtolower(trim($category['name'],' '))}}" value="{{$category['id']}}">{{$category['name']}}<br>
 @endforeach
 </div>
 <script>

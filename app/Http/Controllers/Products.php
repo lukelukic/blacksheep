@@ -27,6 +27,7 @@ class Products extends Controller
         } else {
             $products = Product::getRepository()->findAll();
         }
+
         return view('products', [
             'data' => [
                 'products' => $products,
@@ -45,12 +46,20 @@ class Products extends Controller
                 $products->push($product);
             }
         }
+        $data = \DB::select(\DB::raw("SELECT DISTINCT t.name, t.id FROM types t INNER JOIN products p ON t.id = p.type_id"));
+        $types = [];
+
+        foreach ($data as $type) {
+            $t = get_object_vars($type);
+            array_push($types, $t);
+        }
 
         return view('products', [
             'data' => [
                 'products' => $products,
                 'categories' => Category::getRepository()->findAll(),
-                'brands' => $brands
+                'brands' => $brands,
+                'types' => $types
             ]
         ]);
     }

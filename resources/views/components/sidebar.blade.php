@@ -7,6 +7,10 @@
     Brend
     @component('components.checkbox_sidebar', ['categories' => $brands])@endcomponent
   @endisset
+  @isset($types)
+      Tip
+    @component('components.checkbox_sidebar', ['categories' => $types])@endcomponent
+  @endisset
       {{--Tip--}}
   {{--@component('components.checkbox_sidebar',$data)@endcomponent--}}
 
