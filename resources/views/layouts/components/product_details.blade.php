@@ -39,7 +39,7 @@
 <script>
     function getProductDetails(id) {
         $.ajax({
-            url : "http://www.blacksheepmobstore.com/public/index.php/products/product/" + id,
+            url : "http://www.blacksheepmobstore.com/laratest/public/index.php/products/product/" + id,
             success : function(data) {
                 showProductDetails(data[0]);
             },
@@ -51,7 +51,7 @@
     function showProductDetails(product) {
         $("#hasColor").addClass('hidden');
         var picture = document.querySelector("#productImage");
-        picture.src = "http://www.blacksheepmobstore.com/public/assets/pages/img/products/" + product.picture.file;
+        picture.src = "http://www.blacksheepmobstore.com/laratest/public/assets/pages/img/products/" + product.picture.file;
         picture.alt = product.picture.alt;
 
         console.log(product);

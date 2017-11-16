@@ -29,7 +29,7 @@ class TypeDTO extends ObjectDTO
     public function getRules()
     {
         return  [
-            'name' => 'required|min:3|unique:types'
+            'name' => 'required|min:1|unique:types'
         ];
     }
 }

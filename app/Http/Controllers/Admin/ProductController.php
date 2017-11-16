@@ -105,7 +105,15 @@ class ProductController extends Controller
                 $product->name = $dto->name;
 
                 if($request->hasFile('picture')){
-                    Log::error("ima fajl");
+                    $fileName = $request->file('picture')->getFilename() . "_" . mktime(time()) . "." . $request->file('picture')->extension();
+                    Log::error($fileName);
+                    $picture = new Picture();
+                    $picture->alt = $product->name;
+                    $picture->file = $fileName;
+                    $picture->save();
+                    $request->file('picture')->move(base_path("/public/assets/pages/img/products/"), $fileName);
+                    $product->picture_id = $picture->id;
+                    $product->save();
                 }
 
                 $product->special = $dto->special;
