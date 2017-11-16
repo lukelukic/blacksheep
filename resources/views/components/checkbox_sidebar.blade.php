@@ -16,20 +16,20 @@
                 hasChecked = true;
                 for(let j=0; j<products.length; j++) {
                     if($(products[j]).find("#productBrand").val() == brands[i].value) {
-                       $(products[j]).show();
+                       $(products[j]).removeClass('hide-brand');
                     }
                 }
             } else {
                 for(let j=0; j<products.length; j++) {
                     if($(products[j]).find("#productBrand").val() == brands[i].value) {
-                        $(products[j]).hide();
+                        $(products[j]).addClass('hide-brand');
                     }
                 }
             }
         }
         if(!hasChecked) {
             for(let i = 0; i < products.length; i++) {
-                $(products[i]).show();
+                $(products[i]).removeClass('hide-brand');
             }
         }
 
