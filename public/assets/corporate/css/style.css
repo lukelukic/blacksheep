@@ -3088,3 +3088,7 @@ Styler Panel
 .hide-brand {
 	display:none;
 }
+
+.hide-search {
+	display:none;
+}

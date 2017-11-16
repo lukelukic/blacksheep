@@ -14,11 +14,10 @@
                 let productName = $(products[i]).find("#productName").html().toLowerCase();
                 if(productName.indexOf(keyword) !== -1) {
                     if(!$(products[i]).hasClass('hide-type') && !$(products[i]).hasClass('hide-brand')) {
-                        $(products[i]).show();
-                        console.log("SVASTA");
+                        $(products[i]).removeClass('hide-search');
                     }
                 } else {
-                    $(products[i]).hide();
+                    $(products[i]).addClass('hide-search');
                 }
             }
         });
