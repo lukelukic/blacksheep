@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c4e31af7-b8aa-4ff9-bf3b-dd3acdcb38b8" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.env" afterPath="$PROJECT_DIR$/.env" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repository/ProductRepository.php" afterPath="$PROJECT_DIR$/app/Repository/ProductRepository.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/assets/plugins/bootstrap/css/bootstrap.min.css" afterPath="$PROJECT_DIR$/public/assets/plugins/bootstrap/css/bootstrap.min.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/components/pagination.blade.php" afterPath="$PROJECT_DIR$/resources/views/components/pagination.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/components/product.blade.php" afterPath="$PROJECT_DIR$/resources/views/components/product.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/layouts/components/product_details.blade.php" afterPath="$PROJECT_DIR$/resources/views/layouts/components/product_details.blade.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -61,11 +57,34 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="product_details.blade.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="product_details.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/layouts/components/product_details.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="875">
-              <caret line="95" column="63" lean-forward="true" selection-start-line="95" selection-start-column="63" selection-end-line="95" selection-end-column="63" />
+            <state relative-caret-position="178">
+              <caret line="90" column="51" lean-forward="false" selection-start-line="90" selection-start-column="51" selection-end-line="90" selection-end-column="51" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pagination.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/components/pagination.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="3" column="61" lean-forward="false" selection-start-line="3" selection-start-column="61" selection-end-line="3" selection-end-column="61" />
+              <folding>
+                <element signature="e#195#202#1#HTML" expanded="true" />
+                <marker date="1510791294525" expanded="true" signature="977:984" ph="»" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="19" lean-forward="false" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -77,6 +96,7 @@
     <findStrings>
       <find>keyword</find>
       <find>productcolors</find>
+      <find>showpage</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -92,9 +112,10 @@
         <option value="$PROJECT_DIR$/resources/views/components/product.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/components/types_sidebar.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/components/sidebar.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/components/pagination.blade.php" />
         <option value="$PROJECT_DIR$/app/Repository/ProductRepository.php" />
         <option value="$PROJECT_DIR$/resources/views/layouts/components/product_details.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/components/pagination.blade.php" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -109,6 +130,9 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/node_modules" />
     <handled-path value="$PROJECT_DIR$/public/admin/blacksheepadmin/node_modules" />
+  </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true">
     <include_path>
@@ -194,7 +218,7 @@
     <option name="height" value="784" />
   </component>
   <component name="ProjectView">
-    <navigator proportions="" version="1">
+    <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -207,7 +231,21 @@
       <manualOrder />
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes />
+    <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="blacksheep" type="b2602c69:ProjectViewProjectNode" />
+              <item name="blacksheep" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -237,18 +275,18 @@
       <updated>1510749778358</updated>
       <workItem from="1510749780315" duration="186000" />
       <workItem from="1510758805900" duration="4444000" />
-      <workItem from="1510771041248" duration="5443000" />
+      <workItem from="1510771041248" duration="8016000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10075000" />
+    <option name="totallyTimeSpent" value="12648000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1376" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32894737" sideWeight="0.50303954" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -372,16 +410,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/components/pagination.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="62" lean-forward="false" selection-start-line="3" selection-start-column="62" selection-end-line="3" selection-end-column="62" />
-          <folding>
-            <marker date="1510772621794" expanded="true" signature="958:965" ph="»" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/products.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -434,8 +462,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/layouts/components/product_details.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="875">
-          <caret line="95" column="63" lean-forward="true" selection-start-line="95" selection-start-column="63" selection-end-line="95" selection-end-column="63" />
+        <state relative-caret-position="178">
+          <caret line="90" column="51" lean-forward="false" selection-start-line="90" selection-start-column="51" selection-end-line="90" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/components/pagination.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="61" lean-forward="false" selection-start-line="3" selection-start-column="61" selection-end-line="3" selection-end-column="61" />
+          <folding>
+            <element signature="e#195#202#1#HTML" expanded="true" />
+            <marker date="1510791294525" expanded="true" signature="977:984" ph="»" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="19" lean-forward="false" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
           <folding />
         </state>
       </provider>
