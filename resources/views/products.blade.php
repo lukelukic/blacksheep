@@ -16,6 +16,13 @@
                         @component('components.search_category')@endcomponent
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <ul class="pagination pull-right" class="pagination">
+                            <li class="paginationStart"><a onclick="showPage(1)"  href="#position">&laquo;</a></li>
+                        </ul>
+                    </div>
+                </div>
                     <div id="products" class="row">
                         @foreach($data['products'] as $product)
                                 @component('components.product', ["product" => $product, "col" => "col-md-3"])@endcomponent
@@ -23,6 +30,13 @@
                     </div>
                 </div>
             @component('components.pagination', $data)@endcomponent
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <ul class="pagination pull-right" class="pagination">
+                        <li class="paginationStart"><a onclick="showPage(1)"  href="#position">&laquo;</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
     </div>

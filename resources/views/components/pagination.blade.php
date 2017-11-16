@@ -1,11 +1,3 @@
-<div class="row">
-    <div class="col-md-12 col-sm-12">
-        <ul class="pagination pull-right" id="pagination">
-            <li id="paginationStart"><a onclick="showPage(1)"  href="#position">&laquo;</a></li>
-        </ul>
-    </div>
-</div>
-
 <script>
     $(document).ready(function() {
 
@@ -20,16 +12,16 @@
         var pages = (itemsCount%12) == 0 ? itemsCount/12 : parseInt(itemsCount/12 + 1);
 
         for(let i = pages; i > 0; i--) {
-            let paginationItem = '<li><a href="#position" class="pag" id='+i+' onclick=showPage(' + i + ')>' + i + '</a></li>';
-            $("#paginationStart").after(paginationItem);
+            let paginationItem = '<li><a href="#position" class="pag'+i+'" onclick=showPage(' + i + ')>' + i + '</a></li>';
+            $(".paginationStart").after(paginationItem);
         }
 
-        $("#pagination").append('<li><a id="paginationEnd"  onclick="showPage(' + pages + ')" href="#position">&raquo;</a></li>')
+        $(".pagination").append('<li><a id="paginationEnd"  onclick="showPage(' + pages + ')" href="#position">&raquo;</a></li>')
     });
 
     function showPage(page) {
-        $(".pag").css('color','#868c93');
-        $("#"+page).css('color','red');
+        $('[class^="pag"]').css('color','#868c93');
+        $(".pag"+page).css('color','red');
         var products = $(".product-item");
         for(let i =0; i < products.length; i++) {
             $(products[i]).hide();
