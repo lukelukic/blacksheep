@@ -13,7 +13,10 @@
             for(let i=0; i < products.length; i++) {
                 let productName = $(products[i]).find("#productName").html().toLowerCase();
                 if(productName.indexOf(keyword) !== -1) {
-                    $(products[i]).show();
+                    if(!$(products[i]).hasClass('hide-type') && !$(products[i]).hasClass('hide-brand')) {
+                        $(products[i]).show();
+                        console.log("SVASTA");
+                    }
                 } else {
                     $(products[i]).hide();
                 }

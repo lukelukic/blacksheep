@@ -3080,3 +3080,11 @@ Styler Panel
 .fancybox-opened {
   z-index: 100001;
 }
+
+.hide-type {
+	display: none;
+}
+
+.hide-brand {
+	display:none;
+}
