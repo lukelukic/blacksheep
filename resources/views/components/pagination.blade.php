@@ -4,7 +4,7 @@
         //Prikaz samo prvih 15 proizvoda
         var products = $(".product-item");
         for(let i=12; i < products.length; i++) {
-            $(products[i]).hide();
+            $(products[i]).addClass('hide-pagination');
         }
 
         //Prikaz paginacije
@@ -24,11 +24,11 @@
         $(".pag"+page).css('color','red');
         var products = $(".product-item");
         for(let i =0; i < products.length; i++) {
-            $(products[i]).hide();
+            $(products[i]).addClass('hide-pagination');
         }
         for(let i = (page-1)*12; i < page*12; i++)
         {
-            $(products[i]).show();
+            $(products[i]).removeClass('hide-pagination');
         }
     }
 </script>

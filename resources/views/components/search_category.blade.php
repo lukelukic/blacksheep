@@ -13,9 +13,7 @@
             for(let i=0; i < products.length; i++) {
                 let productName = $(products[i]).find("#productName").html().toLowerCase();
                 if(productName.indexOf(keyword) !== -1) {
-                    if(!$(products[i]).hasClass('hide-type') && !$(products[i]).hasClass('hide-brand')) {
                         $(products[i]).removeClass('hide-search');
-                    }
                 } else {
                     $(products[i]).addClass('hide-search');
                 }
