@@ -32,6 +32,5 @@
                 $(products[i]).removeClass('hide-brand');
             }
         }
-
     }
 </script>
