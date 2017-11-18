@@ -68,7 +68,7 @@ class Checkout extends Controller
             $status = false;
             Log::error($e->getMessage());
         }
-        return ['status' => $status];
+        return ['status' => $status, 'token' => $user->token];
     }
 
     private function browseOrderItems(User $user)

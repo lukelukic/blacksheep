@@ -14,6 +14,7 @@ use App\Services\RequestToObject;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
+use Intervention\Image\Facades\Image;
 
 class ProductController extends Controller
 {
@@ -62,7 +63,10 @@ class ProductController extends Controller
                     $picture->alt = $product->name;
                     $picture->file = $fileName;
                     $picture->save();
-                    $request->file('picture')->move(base_path("/public/assets/pages/img/products/"), $fileName);
+                    $image = $request->file('picture');
+                    $image_resize = Image::make($image->getRealPath());
+                    $image_resize->resize(500, 500);
+                    $image_resize->save(public_path("assets/pages/img/products/").$fileName);
                     $product->picture_id = $picture->id;
                     $product->save();
                 }
@@ -111,7 +115,11 @@ class ProductController extends Controller
                     $picture->alt = $product->name;
                     $picture->file = $fileName;
                     $picture->save();
-                    $request->file('picture')->move(base_path("/public/assets/pages/img/products/"), $fileName);
+                    //$request->file('picture')->move(base_path("/public/assets/pages/img/products/"), $fileName);
+                    $image = $request->file('picture');
+                    $image_resize = Image::make($image->getRealPath());
+                    $image_resize->resize(500, 500);
+                    $image_resize->save(public_path("assets/pages/img/products/").$fileName);
                     $product->picture_id = $picture->id;
                     $product->save();
                 }

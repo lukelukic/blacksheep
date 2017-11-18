@@ -79,7 +79,8 @@ function placeAnOrder()
             if(data.status) {
                 $("#milanko").fadeOut(function () {
                     $("#orderFeedback").addClass('alert alert-success');
-                    $("#orderFeedback").html("<p class='text-center lead'>Porudžbina uspešno obavljena!</br><strong>Detaljne informacije su Vam poslate na priloženu email adresu.</strong></p>");
+                    $("#orderFeedback").html("<p class='text-center lead'>Porudžbina uspešno obavljena!</br><strong>Detaljne informacije su Vam poslate na priloženu email adresu.</strong></p>" +
+                        "<p class='text-center text-info'>Pri sledećoj kupovini možete uneti kod: <strong>" + data.token + "</strong> kako ne biste iznova unosili podatke.</p>");
                 });
             }
         },

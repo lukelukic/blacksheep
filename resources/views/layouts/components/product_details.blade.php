@@ -39,7 +39,7 @@
 <script>
     function getProductDetails(id) {
         $.ajax({
-            url : "http://www.blacksheepmobstore.com/laratest/public/index.php/products/product/" + id,
+            url : "http://localhost/blacksheep/public/index.php/products/product/" + id,
             success : function(data) {
                 showProductDetails(data[0]);
             },
@@ -51,10 +51,10 @@
     function showProductDetails(product) {
         $("#hasColor").addClass('hidden');
         var picture = document.querySelector("#productImage");
-        picture.src = "http://www.blacksheepmobstore.com/laratest/public/assets/pages/img/products/" + product.picture.file;
+        picture.src = "http://localhost/blacksheep/public/assets/pages/img/products/" + product.picture.file;
         picture.alt = product.picture.alt;
 
-        console.log(product);
+
         if(product.is_offer) {
             for(let i = 0; i < product.prices.length; i++) {
                 if(product.prices[i].is_offer) {
@@ -82,11 +82,12 @@
         $("#productDescription").html(product.description);
         if(product.colors.length) {
             $("#hasColor").removeClass('hidden');
+            $("#productColors").empty();
             $.each(product.colors, function(i, item) {
                 let option = document.createElement("option");
                 option.textContent = "";
                 option.id = item.id;
-                option.value = item.rgb;
+                option.value = item.hex;
                 $(option).css("background-color", item.hex);
                 $("#productColors").append(option);
             });
